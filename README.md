@@ -1,2 +1,13 @@
 # StudyGroups
-Elaborato per il corso di Tecnologie Web. Sito web per cercare gruppi di studio per il campus unibo di cesena.
+
+Progetto per il corso di Tecnologie Web – Unibo.
+
+Servizio web per la creazione e la ricerca di gruppi di studio
+per studenti del campus di Cesena.
+
+## Tecnologie utilizzate
+- HTML5
+- CSS3
+- Bootstrap
+- PHP
+- JavaScript
