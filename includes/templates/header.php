@@ -1,7 +1,7 @@
     <?php
     $isLoggedIn = $templateParams["isLoggedIn"] ?? false;
-    $name = $templateParams["name"] ?? "Area";
-    $surname = $templateParams["surname"] ?? "Personale";
+    $name = $templateParams["name"] ?? "";
+    $surname = $templateParams["surname"] ?? "";
     $displayName = $name . " " . $surname;
     ?>
     <header>
