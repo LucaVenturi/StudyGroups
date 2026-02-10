@@ -3,8 +3,9 @@
 require_once(__DIR__ . '/../includes/init.php');
 
 $templateParams = array(
-    "title" => "Home",
-    "mainContent" => "home-content.php",
+    "title" => "Annunci",
+    "mainContent" => "find-groups.php",
+    "groups" => $dbHelper->getGroups()
 );
 
 require(__DIR__ . '/../includes/templates/base.php');

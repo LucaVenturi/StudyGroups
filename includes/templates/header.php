@@ -1,5 +1,5 @@
     <?php
-    $isLoggedIn = $templateParams["isLoggedIn"] ?? false;
+    $isLoggedIn = isUserLoggedIn();
     $name = $templateParams["name"] ?? "";
     $surname = $templateParams["surname"] ?? "";
     $displayName = $name . " " . $surname;

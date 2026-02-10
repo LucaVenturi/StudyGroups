@@ -1,0 +1,70 @@
+<div class="row">
+
+    <!-- Bottone solo mobile -->
+    <div class="col-12 d-lg-none mb-3 text-end">
+        <button class="btn btn-outline-primary" type="button" data-bs-toggle="collapse"
+            data-bs-target="#filtriCollapse">
+            Filtra annunci
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor"
+                class="bi bi-filter" viewBox="0 0 16 16">
+                <path d="M6 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5m-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5m-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5" />
+            </svg>
+        </button>
+    </div>
+
+    <!-- ANNUNCI -->
+    <section class="col-lg-9">
+
+        <?php require("list-groups.php") ?>
+
+    </section>
+
+    <!-- FILTRI / COLLAPSE RESPONSIVE -->
+    <aside class="col-lg-3">
+
+        <!-- Collapse unico -->
+        <div id="filtriCollapse" class="collapse d-lg-block">
+            <div class="card border-primary shadow-sm">
+                <div class="card-header fw-bold d-lg-none">Filtri</div>
+                <div class="card-body">
+
+                    <!-- UNICO FORM -->
+                    <form>
+
+                        <div class="mb-3">
+                            <label for="materia" class="form-label">Materia</label>
+                            <input type="text" id="materia" class="form-control" placeholder="Es. Analisi 1">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="corso" class="form-label">Corso di laurea</label>
+                            <select id="corso" class="form-select">
+                                <option selected>Tutti</option>
+                                <option>Informatica</option>
+                                <option>Ingegneria</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="data" class="form-label">Data esame entro</label>
+                            <input type="date" id="data" class="form-control">
+                        </div>
+
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="checkbox" id="posti">
+                            <label class="form-check-label" for="posti">
+                                Solo gruppi con posti liberi
+                            </label>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-100">
+                            Applica filtri
+                        </button>
+
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </aside>
+</div>
