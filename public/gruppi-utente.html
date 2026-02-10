@@ -1,0 +1,369 @@
+<!doctype html>
+<html lang="it">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>StudyGroups - I miei gruppi</title>
+    <meta name="description" content="Gestisci i tuoi gruppi di studio">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../assets/css/custom.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header>
+        <nav class="navbar navbar-expand-lg bg-primary navbar-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand fw-bold" href="index.php">StudyGroups</a>
+                
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggler">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarToggler">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.php">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="gruppi.php">Trova un gruppo</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="miei-gruppi.php">I miei gruppi</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="profilo.php">Profilo</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="logout.php">Logout</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- MAIN -->
+    <main class="container-fluid my-4">
+        
+        <!-- Titolo pagina -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <h1 class="fw-bold text-center">I miei gruppi</h1>
+                <p class="text-center text-muted">Gestisci i gruppi a cui partecipi e quelli che hai creato</p>
+            </div>
+        </div>
+
+        <!-- TAB NAVIGATION -->
+        <div class="row mb-3">
+            <div class="col-12">
+                <ul class="nav nav-tabs nav-fill" id="mieiGruppiTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button 
+                            class="nav-link active fw-semibold" 
+                            id="partecipo-tab" 
+                            data-bs-toggle="tab" 
+                            data-bs-target="#partecipo" 
+                            type="button" 
+                            role="tab" 
+                            aria-controls="partecipo" 
+                            aria-selected="true">
+                            Partecipo
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button 
+                            class="nav-link fw-semibold" 
+                            id="creati-tab" 
+                            data-bs-toggle="tab" 
+                            data-bs-target="#creati" 
+                            type="button" 
+                            role="tab" 
+                            aria-controls="creati" 
+                            aria-selected="false">
+                            Creati da me
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- TAB CONTENT -->
+        <div class="tab-content" id="mieiGruppiTabContent">
+            
+            <!-- TAB 1: PARTECIPO -->
+            <div class="tab-pane fade show active" id="partecipo" role="tabpanel" aria-labelledby="partecipo-tab">
+                
+                <!-- Se NON ci sono gruppi (mostra messaggio vuoto) -->
+                <!-- 
+                <div class="row">
+                    <div class="col-12 text-center py-5">
+                        <p class="text-muted">
+                            <em>Non partecipi ancora a nessun gruppo. 
+                            <a href="gruppi.php" class="text-decoration-none">Trova un gruppo</a> a cui unirti!</em>
+                        </p>
+                    </div>
+                </div>
+                -->
+
+                <!-- Se CI SONO gruppi -->
+                <div class="row g-3">
+                    
+                    <!-- Card Gruppo 1 -->
+                    <div class="col-lg-6 col-12">
+                        <article class="card border-primary shadow-sm h-100">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <h2 class="card-title h5 mb-0">Analisi Matematica 1</h2>
+                                <span class="badge bg-primary fs-6">5/10</span>
+                            </div>
+                            
+                            <div class="card-body">
+                                <ul class="list-unstyled mb-0">
+                                    <li class="mb-2">
+                                        <strong>Corso:</strong> Ingegneria Informatica
+                                    </li>
+                                    <li class="mb-2">
+                                        <strong>Data esame:</strong> 
+                                        <time datetime="2026-02-12">12 Feb 2026</time>
+                                        <span class="badge bg-warning text-dark ms-2">tra 8 giorni</span>
+                                    </li>
+                                    <li>
+                                        <strong>Creato da:</strong> Giuseppe Verdi
+                                    </li>
+                                </ul>
+                            </div>
+                            
+                            <div class="card-footer d-flex gap-2">
+                                <a href="dettaglio-gruppo.php?id=1" class="btn btn-outline-primary btn-sm flex-grow-1">
+                                    Dettagli
+                                </a>
+                                <button type="button" class="btn btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target="#exitModal1">
+                                    Esci
+                                </button>
+                            </div>
+                        </article>
+                    </div>
+
+                    <!-- Card Gruppo 2 -->
+                    <div class="col-lg-6 col-12">
+                        <article class="card border-primary shadow-sm h-100">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <h2 class="card-title h5 mb-0">Basi di Dati</h2>
+                                <span class="badge bg-success fs-6">6/6 COMPLETO</span>
+                            </div>
+                            
+                            <div class="card-body">
+                                <ul class="list-unstyled mb-0">
+                                    <li class="mb-2">
+                                        <strong>Corso:</strong> Informatica
+                                    </li>
+                                    <li class="mb-2">
+                                        <strong>Data esame:</strong> 
+                                        <time datetime="2026-02-20">20 Feb 2026</time>
+                                        <span class="badge bg-success ms-2">tra 16 giorni</span>
+                                    </li>
+                                    <li>
+                                        <strong>Creato da:</strong> Maria Rossi
+                                    </li>
+                                </ul>
+                            </div>
+                            
+                            <div class="card-footer d-flex gap-2">
+                                <a href="dettaglio-gruppo.php?id=2" class="btn btn-outline-primary btn-sm flex-grow-1">
+                                    Dettagli
+                                </a>
+                                <button type="button" class="btn btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target="#exitModal2">
+                                    Esci
+                                </button>
+                            </div>
+                        </article>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- TAB 2: CREATI DA ME -->
+            <div class="tab-pane fade" id="creati" role="tabpanel" aria-labelledby="creati-tab">
+                
+                <!-- Se NON ci sono gruppi creati -->
+                <!-- 
+                <div class="row">
+                    <div class="col-12 text-center py-5">
+                        <p class="text-muted mb-4">
+                            <em>Non hai ancora creato nessun gruppo.</em>
+                        </p>
+                        <a href="crea-gruppo.php" class="btn btn-primary">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle me-1" viewBox="0 0 16 16">
+                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
+                            </svg>
+                            Crea il tuo primo gruppo
+                        </a>
+                    </div>
+                </div>
+                -->
+
+                <!-- Se CI SONO gruppi creati -->
+                <div class="row g-3">
+                    
+                    <!-- Card Gruppo Creato 1 -->
+                    <div class="col-lg-6 col-12">
+                        <article class="card border-success shadow-sm h-100">
+                            <div class="card-header bg-success bg-opacity-10 d-flex justify-content-between align-items-center">
+                                <h2 class="card-title h5 mb-0">Tecnologie Web</h2>
+                                <span class="badge bg-success fs-6">2/5</span>
+                            </div>
+                            
+                            <div class="card-body">
+                                <ul class="list-unstyled mb-0">
+                                    <li class="mb-2">
+                                        <strong>Corso:</strong> Ingegneria Informatica
+                                    </li>
+                                    <li class="mb-2">
+                                        <strong>Data esame:</strong> 
+                                        <time datetime="2026-02-10">10 Feb 2026</time>
+                                        <span class="badge bg-danger ms-2">tra 6 giorni</span>
+                                    </li>
+                                    <li>
+                                        <strong>Sei il creatore</strong> 👑
+                                    </li>
+                                </ul>
+                            </div>
+                            
+                            <div class="card-footer d-flex gap-2 flex-wrap">
+                                <a href="dettaglio-gruppo.php?id=3" class="btn btn-outline-primary btn-sm">
+                                    Dettagli
+                                </a>
+                                <a href="modifica-gruppo.php?id=3" class="btn btn-outline-secondary btn-sm">
+                                    Modifica
+                                </a>
+                                <button type="button" class="btn btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal1">
+                                    Elimina
+                                </button>
+                            </div>
+                        </article>
+                    </div>
+
+                    <!-- Card Gruppo Creato 2 -->
+                    <div class="col-lg-6 col-12">
+                        <article class="card border-success shadow-sm h-100">
+                            <div class="card-header bg-success bg-opacity-10 d-flex justify-content-between align-items-center">
+                                <h2 class="card-title h5 mb-0">Sistemi Operativi</h2>
+                                <span class="badge bg-success fs-6">4/8</span>
+                            </div>
+                            
+                            <div class="card-body">
+                                <ul class="list-unstyled mb-0">
+                                    <li class="mb-2">
+                                        <strong>Corso:</strong> Informatica
+                                    </li>
+                                    <li class="mb-2">
+                                        <strong>Data esame:</strong> 
+                                        <time datetime="2026-03-05">05 Mar 2026</time>
+                                        <span class="badge bg-info ms-2">tra 30 giorni</span>
+                                    </li>
+                                    <li>
+                                        <strong>Sei il creatore</strong> 👑
+                                    </li>
+                                </ul>
+                            </div>
+                            
+                            <div class="card-footer d-flex gap-2 flex-wrap">
+                                <a href="dettaglio-gruppo.php?id=4" class="btn btn-outline-primary btn-sm">
+                                    Dettagli
+                                </a>
+                                <a href="modifica-gruppo.php?id=4" class="btn btn-outline-secondary btn-sm">
+                                    Modifica
+                                </a>
+                                <button type="button" class="btn btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal2">
+                                    Elimina
+                                </button>
+                            </div>
+                        </article>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+        <!-- FLOATING ACTION BUTTON (Crea gruppo) -->
+        <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+            <a href="crea-gruppo.php" class="btn btn-primary btn-lg rounded-circle shadow-lg" 
+               style="width: 60px; height: 60px; display: flex; align-items: center; justify-content: center;"
+               title="Crea nuovo gruppo">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
+                </svg>
+            </a>
+        </div>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-dark text-light text-center p-3 mt-5">
+        <p class="mb-0">&copy; 2026 StudyGroups. Tutti i diritti riservati.</p>
+    </footer>
+
+    <!-- MODAL: Conferma uscita da gruppo (esempio per gruppo 1) -->
+    <div class="modal fade" id="exitModal1" tabindex="-1" aria-labelledby="exitModal1Label" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exitModal1Label">Conferma uscita</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Chiudi"></button>
+                </div>
+                <div class="modal-body">
+                    Sei sicuro di voler uscire dal gruppo <strong>Analisi Matematica 1</strong>?
+                    <br><br>
+                    Non potrai più vedere i contatti degli altri membri.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annulla</button>
+                    <form action="exit-gruppo.php" method="POST" style="display: inline;">
+                        <input type="hidden" name="gruppo_id" value="1">
+                        <button type="submit" class="btn btn-danger">Esci dal gruppo</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: Conferma eliminazione gruppo (esempio per gruppo creato 1) -->
+    <div class="modal fade" id="deleteModal1" tabindex="-1" aria-labelledby="deleteModal1Label" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-danger text-white">
+                    <h5 class="modal-title" id="deleteModal1Label">⚠️ Conferma eliminazione</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Chiudi"></button>
+                </div>
+                <div class="modal-body">
+                    Sei sicuro di voler <strong>eliminare</strong> il gruppo <strong>Tecnologie Web</strong>?
+                    <br><br>
+                    <span class="text-danger fw-bold">Questa azione è irreversibile!</span>
+                    <br>
+                    Tutti i membri perderanno l'accesso al gruppo.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annulla</button>
+                    <form action="delete-gruppo.php" method="POST" style="display: inline;">
+                        <input type="hidden" name="gruppo_id" value="3">
+                        <button type="submit" class="btn btn-danger">Elimina definitivamente</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Aggiungi altri modal per exit/delete se necessario -->
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>
