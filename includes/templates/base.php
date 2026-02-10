@@ -7,7 +7,7 @@
     <title>StudyGroups - Home</title>
     <meta name="description" content="Trova e crea gruppi di studio efficaci">
     
-    <!-- Il tuo tema Bootstrap personalizzato -->
+    <!-- Tema Bootstrap personalizzato -->
     <link href="../assets/css/custom.css" rel="stylesheet">
 </head>
 
