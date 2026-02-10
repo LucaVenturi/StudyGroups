@@ -2,11 +2,12 @@
 
 require_once(__DIR__ . '/../includes/init.php');
 
-$templateParams = array(
-    "title" => "Login",
-    "mainContent" => "login-form.php",
-    "errorelogin" => isset($_SESSION["errorelogin"]) ? $_SESSION["errorelogin"] : null
-);
+$templateParams["title"] = "Login";
+$templateParams["mainContent"] = "login-form.php";
+if(isset($_SESSION["erroreLogin"])) {
+    $templateParams["errorelogin"] = $_SESSION["erroreLogin"];
+    unset($_SESSION["erroreLogin"]);
+}
 
 require(__DIR__ . '/../includes/templates/base.php');
 
