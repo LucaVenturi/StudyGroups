@@ -1,0 +1,89 @@
+    <?php
+    $isLoggedIn = $templateParams["isLoggedIn"] ?? false;
+    $name = $templateParams["name"] ?? "Area";
+    $surname = $templateParams["surname"] ?? "Personale";
+    $displayName = $name . " " . $surname;
+    ?>
+    <header>
+        <nav class="navbar navbar-expand-lg bg-primary navbar-dark">
+            <div class="container-fluid">
+                <!-- Titolo della pagina come brand -->
+                <a class="navbar-brand fw-bold" href="#">
+                    <?php echo $page_title ?>
+                </a>
+                <!-- Menu hamburger per dispositivi mobili -->
+                <button
+                    class="navbar-toggler"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarToggler"
+                    aria-controls="navbarToggler"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation"
+                >
+                    <!-- Icona del menu hamburger -->
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Link di navigazione -->
+                <div class="collapse navbar-collapse" id="navbarToggler">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#">
+                                Home
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                Trova un gruppo
+                            </a>
+                        </li>
+                        <!-- Se l'utente non è loggato, mostra "Accedi/Registrati". -->
+                        <?php if (!$isLoggedIn): ?>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                Accedi/Registrati
+                            </a>
+                        </li>
+                        <!-- Se l'utente è loggato, mostra il suo nome e un menu a tendina. -->
+                        <?php else: ?>
+                        <li class="nav-item dropdown">
+                            <a
+                                class="nav-link dropdown-toggle"
+                                href="#"
+                                role="button"
+                                data-bs-toggle="dropdown"
+                                aria-expanded="false"
+                            >
+                                <?php 
+                                    if (empty($displayName))
+                                        echo "Area Personale";
+                                    else
+                                        echo htmlspecialchars($displayName);
+                                ?>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li>
+                                    <a class="dropdown-item" href="#">
+                                        Profilo
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="#">
+                                        I miei gruppi
+                                    </a>
+                                </li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li>
+                                    <a class="dropdown-item" href="#">
+                                        Logout
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <?php endif; ?>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
