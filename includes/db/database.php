@@ -1,10 +1,8 @@
 <?php
-class DatabaseHelper
-{
+class DatabaseHelper {
     private $db;
 
-    public function __construct($servername, $username, $password, $dbname, $port)
-    {
+    public function __construct($servername, $username, $password, $dbname, $port) {
         $this->db = new mysqli($servername, $username, $password, $dbname, $port);
         if ($this->db->connect_error) {
             die("Connection failed: " . $this->db->connect_error);
@@ -12,13 +10,14 @@ class DatabaseHelper
         $this->db->set_charset("utf8mb4");
     }
 
-    public function getGroups()
-    {
+    public function getGroups() {
         $query = <<<SQL
                 SELECT
+                    g.id,
                     g.titolo,
                     g.descrizione,
                     g.data_esame,
+                    COUNT(p.id_partecipante) AS num_partecipanti,
                     g.max_partecipanti,
                     cdl.nome AS corso_di_laurea,
                     m.nome AS materia,
@@ -32,6 +31,9 @@ class DatabaseHelper
                     ON m.id_cdl = cdl.id
                 JOIN utenti AS u
                     ON g.id_creatore = u.id
+                JOIN partecipazioni AS p
+                    ON g.id = p.id_gruppo
+                GROUP BY g.id
             SQL;
         $stmt = $this->db->prepare($query);
         $stmt->execute();
@@ -40,8 +42,72 @@ class DatabaseHelper
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    function checkLogin($email, $password)
-    {
+    function getGroupsCreatedBy($userId) {
+        $query = <<<SQL
+                SELECT
+                    g.id,
+                    g.titolo,
+                    g.descrizione,
+                    g.data_esame,
+                    COUNT(p.id_partecipante) AS num_partecipanti,
+                    g.max_partecipanti,
+                    cdl.nome AS corso_di_laurea,
+                    m.nome AS materia,
+                    u.nome AS nome_creatore,
+                    u.cognome AS cognome_creatore,
+                    u.foto_profilo as foto_profilo_creatore
+                FROM gruppi AS g
+                JOIN materie AS m
+                    ON g.nome_materia_studiata = m.nome AND g.id_cdl = m.id_cdl
+                JOIN corsi_di_laurea AS cdl
+                    ON m.id_cdl = cdl.id
+                JOIN utenti AS u
+                    ON g.id_creatore = u.id
+                JOIN partecipazioni AS p
+                    ON g.id = p.id_gruppo
+                WHERE g.id_creatore = ?
+                GROUP BY g.id
+            SQL;
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("i", $userId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_all(MYSQLI_ASSOC); 
+    }
+
+    function getGroupsWithParticipant($userId) {
+        $query = <<<SQL
+            SELECT
+                g.id,
+                g.titolo,
+                g.descrizione,
+                g.data_esame,
+                (SELECT COUNT(*) FROM partecipazioni WHERE id_gruppo = g.id) AS num_partecipanti,
+                g.max_partecipanti,
+                cdl.nome AS corso_di_laurea,
+                m.nome AS materia,
+                u.nome AS nome_creatore,
+                u.cognome AS cognome_creatore,
+                u.foto_profilo AS foto_profilo_creatore
+            FROM gruppi g
+            JOIN materie m ON g.nome_materia_studiata = m.nome AND g.id_cdl = m.id_cdl
+            JOIN corsi_di_laurea cdl ON m.id_cdl = cdl.id
+            JOIN utenti u ON g.id_creatore = u.id
+            WHERE EXISTS (
+                SELECT 1 FROM partecipazioni p
+                WHERE p.id_gruppo = g.id AND p.id_partecipante = ?
+            );
+        SQL;
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("i", $userId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_all(MYSQLI_ASSOC); 
+    }
+
+    function checkLogin($email, $password) {
         $query = <<<SQL
                 SELECT * 
                 FROM utenti 
@@ -71,8 +137,7 @@ class DatabaseHelper
      * @param string|null $telegram Il contatto Telegram dell'utente (opzionale)
      * @return array|false I dati dell'utente registrato o false in caso di errore
      */
-    function registerUser($name, $surname, $email, $password, $course = null, $telegram = null)
-    {
+    function registerUser($name, $surname, $email, $password, $course = null, $telegram = null) {
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
         $query = <<<SQL
@@ -96,13 +161,92 @@ class DatabaseHelper
     /***
      * Recupera un utente dal database dato il suo ID.
      */
-    private function getUserById($id)
-    {
+    function getUserById($id) {
         $query = "SELECT id, nome, cognome, email, foto_profilo, is_admin, telegram, id_cdl FROM utenti WHERE id = ?";
         $stmt = $this->db->prepare($query);
         $stmt->bind_param("i", $id);
         $stmt->execute();
         $result = $stmt->get_result();
+        $user = $result->fetch_assoc();
+        unset($user['password']);
+        return $user;
+    }
+
+    function getGroupById($groupId) {
+        $query = <<<SQL
+            SELECT
+                g.id,
+                g.titolo,
+                g.descrizione,
+                g.data_esame,
+                (SELECT COUNT(*) FROM partecipazioni WHERE id_gruppo = g.id) AS num_partecipanti,
+                g.max_partecipanti,
+                cdl.nome AS corso_di_laurea,
+                m.nome AS materia,
+                u.nome AS nome_creatore,
+                u.cognome AS cognome_creatore,
+                u.foto_profilo AS foto_profilo_creatore
+            FROM gruppi g
+            JOIN materie m ON g.nome_materia_studiata = m.nome AND g.id_cdl = m.id_cdl
+            JOIN corsi_di_laurea cdl ON m.id_cdl = cdl.id
+            JOIN utenti u ON g.id_creatore = u.id
+            WHERE g.id = ?;
+        SQL;
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("i", $groupId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
         return $result->fetch_assoc();
+    }
+
+    function getGroupCreator($groupId) {
+        $query = <<<SQL
+            SELECT 
+                u.id, 
+                u.nome, 
+                u.cognome, 
+                u.email, 
+                u.foto_profilo, 
+                u.telegram, 
+                cdl.nome AS corso_di_laurea
+            FROM gruppi g
+            JOIN utenti u 
+                ON g.id_creatore = u.id
+            JOIN corsi_di_laurea cdl 
+                ON u.id_cdl = cdl.id
+            WHERE g.id = ?;
+        SQL;
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("i", $groupId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_assoc();
+    }
+
+    function getGroupPartecipants($groupId) {
+        $query = <<<SQL
+            SELECT 
+                u.id, 
+                u.nome, 
+                u.cognome, 
+                u.email, 
+                u.foto_profilo, 
+                u.telegram, 
+                cdl.nome AS corso_di_laurea
+            FROM partecipazioni p
+            JOIN utenti u 
+                ON p.id_partecipante = u.id
+            JOIN corsi_di_laurea cdl 
+                ON u.id_cdl = cdl.id
+            WHERE p.id_gruppo = ?;
+        SQL;
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("i", $groupId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_all(MYSQLI_ASSOC);
     }
 }
