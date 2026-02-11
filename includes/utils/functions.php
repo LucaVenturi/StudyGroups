@@ -6,20 +6,21 @@
  */
 function isUserLoggedIn()
 {
-    return !empty($_SESSION['id_utente']);
+    return isset($_SESSION['logged_user']);
 }
 
 /**
  * Funzione per ricordare l'utente loggato
  */
-function rememberLoggedUser($user)
-{
-    $_SESSION['id_utente'] = $user['id'];
-    $_SESSION['email'] = $user['email'];
-    $_SESSION['nome'] = $user['nome'];
-    $_SESSION['cognome'] = $user['cognome'];
-    $_SESSION['foto_profilo'] = $user['foto_profilo'];
-    $_SESSION['is_admin'] = $user['is_admin'];
+function rememberLoggedUser($user) {
+    $_SESSION['logged_user'] = $user;
+}
+
+/**
+ * Funzione per ottenere i dati dell'utente loggato
+ */
+function getLoggedUser() {
+    return $_SESSION['logged_user'] ?? null;
 }
 
 /**

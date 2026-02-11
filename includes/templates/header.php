@@ -1,62 +1,60 @@
-    <?php
-    $isLoggedIn = isUserLoggedIn();
-    $name = $templateParams["name"] ?? "";
-    $surname = $templateParams["surname"] ?? "";
-    $displayName = trim($name . " " . $surname) ?: "Area Personale";
-    ?>
-    <header>
-        <nav class="navbar navbar-expand-lg bg-primary navbar-dark">
-            <div class="container-fluid">
-                <!-- Titolo della pagina come brand -->
-                <a class="navbar-brand fw-bold" href="#">
-                    <?php echo $page_title ?>
-                </a>
-                <!-- Menu hamburger per dispositivi mobili -->
-                <button
-                    class="navbar-toggler"
-                    type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#navbarToggler"
-                    aria-controls="navbarToggler"
-                    aria-expanded="false"
-                    aria-label="Toggle navigation"
-                >
-                    <!-- Icona del menu hamburger -->
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+<?php
+$isLoggedIn = isUserLoggedIn();
+$user = $isLoggedIn ? getLoggedUser() : null;
+$displayName = $user ? trim($user['nome'] . ' ' . $user['cognome']) : 'Area Personale';
+?>
 
-                <!-- Link di navigazione -->
-                <div class="collapse navbar-collapse" id="navbarToggler">
-                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">
-                                Home
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="annunci.php">
-                                Trova un gruppo
-                            </a>
-                        </li>
-                        <!-- Se l'utente non è loggato, mostra "Accedi/Registrati". -->
-                        <?php if (!$isLoggedIn): ?>
+<header>
+    <nav class="navbar navbar-expand-lg bg-primary navbar-dark">
+        <div class="container-fluid">
+            <!-- Titolo della pagina come brand -->
+            <a class="navbar-brand fw-bold" href="#">
+                <?php echo $page_title ?>
+            </a>
+            <!-- Menu hamburger per dispositivi mobili -->
+            <button
+                class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarToggler"
+                aria-controls="navbarToggler"
+                aria-expanded="false"
+                aria-label="Toggle navigation">
+                <!-- Icona del menu hamburger -->
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Link di navigazione -->
+            <div class="collapse navbar-collapse" id="navbarToggler">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">
+                            Home
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="annunci.php">
+                            Trova un gruppo
+                        </a>
+                    </li>
+                    <!-- Se l'utente non è loggato, mostra "Accedi/Registrati". -->
+                    <?php if (!$isLoggedIn): ?>
                         <li class="nav-item">
                             <a class="nav-link" href="login.php">
                                 Accedi/Registrati
                             </a>
                         </li>
                         <!-- Se l'utente è loggato, mostra il suo nome e un menu a tendina. -->
-                        <?php else: ?>
+                    <?php else: ?>
                         <li class="nav-item dropdown">
                             <a
                                 class="nav-link dropdown-toggle"
                                 href="#"
                                 role="button"
                                 data-bs-toggle="dropdown"
-                                aria-expanded="false"
-                            >
-                                <?php 
-                                    echo htmlspecialchars($displayName);
+                                aria-expanded="false">
+                                <?php
+                                echo htmlspecialchars($displayName);
                                 ?>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end">
@@ -70,7 +68,9 @@
                                         I miei gruppi
                                     </a>
                                 </li>
-                                <li><hr class="dropdown-divider"></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
                                 <li>
                                     <a class="dropdown-item" href="/StudyGroups/includes/api/process-logout.php">
                                         Logout
@@ -78,9 +78,9 @@
                                 </li>
                             </ul>
                         </li>
-                        <?php endif; ?>
-                    </ul>
-                </div>
+                    <?php endif; ?>
+                </ul>
             </div>
-        </nav>
-    </header>
+        </div>
+    </nav>
+</header>
