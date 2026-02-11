@@ -19,7 +19,7 @@ if (isset($_POST["email"]) && isset($_POST["password"])) {
         exit;
     } else {
         //Login fallito
-        $_SESSION["errorelogin"] = "Errore! Controllare email o password!";
+        $_SESSION["login_error"] = "Errore! Controllare email o password!";
         header("Location: /StudyGroups/public/login.php");
         exit;
     }

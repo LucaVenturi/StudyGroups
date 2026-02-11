@@ -4,7 +4,7 @@ require_once(__DIR__ . '/../includes/init.php');
 
 $templateParams = array(
     "title" => "Annunci",
-    "mainContent" => "find-groups.php",
+    "main_content" => "find-groups.php",
     "groups" => $dbHelper->getGroups()
 );
 

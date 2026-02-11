@@ -41,170 +41,127 @@
 
     <!-- MAIN -->
     <main class="container-fluid py-5">
-        <div class="row justify-content-center">
-            <div class="col-lg-6 col-md-8 col-sm-12">
-                <h1 class="fw-bold text-center mb-3">
-                    Crea il tuo account
-                </h1>
-                <p class="text-center text-muted mb-4">
-                    Compila il form per iniziare a trovare gruppi di studio!
-                </p>
-            </div>
-        </div>
-
-        <div class="row justify-content-center">
-            <form class="col-lg-6 col-md-8 col-sm-12 p-4 p-md-5 border rounded-3 shadow-sm bg-white" 
-                  action="register_process.php" 
-                  method="POST">
-                
-                <!-- Nome -->
-                <div class="mb-3">
-                    <label for="nome" class="form-label fw-semibold">
-                        Nome <span class="text-danger">*</span>
-                    </label>
-                    <input 
-                        type="text" 
-                        class="form-control" 
-                        id="nome" 
-                        name="nome"
-                        placeholder="Mario"
-                        required
-                        autocomplete="given-name"
-                    />
-                </div>
-
-                <!-- Cognome -->
-                <div class="mb-3">
-                    <label for="cognome" class="form-label fw-semibold">
-                        Cognome <span class="text-danger">*</span>
-                    </label>
-                    <input 
-                        type="text" 
-                        class="form-control" 
-                        id="cognome" 
-                        name="cognome"
-                        placeholder="Rossi"
-                        required
-                        autocomplete="family-name"
-                    />
-                </div>
-
-                <!-- Email -->
-                <div class="mb-3">
-                    <label for="email" class="form-label fw-semibold">
-                        Email <span class="text-danger">*</span>
-                    </label>
-                    <input 
-                        type="email" 
-                        class="form-control" 
-                        id="email" 
-                        name="email"
-                        placeholder="nome.cognome@studio.unibo.it"
-                        required
-                        autocomplete="email"
-                    />
-                </div>
-
-                <!-- Password -->
-                <div class="mb-3">
-                    <label for="password" class="form-label fw-semibold">
-                        Password <span class="text-danger">*</span>
-                    </label>
-                    <input 
-                        type="password" 
-                        class="form-control" 
-                        id="password" 
-                        name="password"
-                        placeholder="Inserisci una password sicura"
-                        minlength="8"
-                        required
-                        autocomplete="new-password"
-                        aria-describedby="passwordHelp"
-                    />
-                    <div id="passwordHelp" class="form-text">
-                        Minimo 8 caratteri. Usa lettere, numeri e simboli.
-                    </div>
-                </div>
-
-                <!-- Conferma Password -->
-                <div class="mb-3">
-                    <label for="confermaPassword" class="form-label fw-semibold">
-                        Conferma password <span class="text-danger">*</span>
-                    </label>
-                    <input 
-                        type="password" 
-                        class="form-control" 
-                        id="confermaPassword" 
-                        name="conferma_password"
-                        placeholder="Ripeti la password"
-                        minlength="8"
-                        required
-                        autocomplete="new-password"
-                    />
-                </div>
-
-                <!-- Divider -->
-                <hr class="my-4">
-
-                <p class="text-muted small mb-3">
-                    <strong>Informazioni opzionali</strong> (potrai aggiungerle anche dopo)
-                </p>
-
-                <!-- Corso di Laurea (opzionale) -->
-                <div class="mb-3">
-                    <label for="corso" class="form-label fw-semibold">
-                        Corso di laurea
-                    </label>
-                    <select class="form-select" id="corso" name="corso_laurea_id">
-                        <option value="" selected>Seleziona il tuo corso (opzionale)</option>
-                        <option value="1">Informatica (L31)</option>
-                        <option value="2">Ingegneria Informatica (L8)</option>
-                        <option value="3">Ingegneria Elettronica (L8)</option>
-                        <option value="4">Informatica (LM18)</option>
-                        <!-- Aggiungi altri corsi dal DB -->
-                    </select>
-                </div>
-
-                <!-- Telegram (opzionale) -->
-                <div class="mb-4">
-                    <label for="telegram" class="form-label fw-semibold">
-                        Telegram
-                    </label>
-                    <div class="input-group">
-                        <span class="input-group-text">@</span>
-                        <input 
-                            type="text" 
-                            class="form-control" 
-                            id="telegram" 
-                            name="telegram"
-                            placeholder="nomeutente"
-                            pattern="[a-zA-Z0-9_]{5,32}"
-                            required="false"
-                        />
-                    </div>
-                    <div class="form-text">
-                        Utile per essere contattato dai membri del gruppo
-                    </div>
-                </div>
-
-                <!-- Bottone Submit -->
-                <div class="d-grid mb-3">
-                    <button type="submit" class="btn btn-primary btn-lg">
-                        Crea account
-                    </button>
-                </div>
-
-                <!-- Link login -->
-                <div class="text-center">
-                    <p class="mb-0 text-muted">
-                        Hai già un account? 
-                        <a href="login.php" class="text-decoration-none fw-semibold">
-                            Accedi
-                        </a>
+        <div class="container-fluid py-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-6 col-md-8 col-sm-12">
+                    <h1 class="fw-bold text-center mb-3">
+                        Crea il tuo account
+                    </h1>
+                    <p class="text-center text-muted mb-4">
+                        Compila il form per iniziare a trovare gruppi di studio!
                     </p>
                 </div>
+            </div>
 
-            </form>
+            <div class="row justify-content-center">
+                <form class="col-lg-6 col-md-8 col-sm-12 p-4 p-md-5 border rounded-3 shadow-sm bg-white"
+                    action="register_process.php" method="POST">
+
+                    <!-- Nome -->
+                    <div class="mb-3">
+                        <label for="nome" class="form-label fw-semibold">
+                            Nome <span class="text-danger">*</span>
+                        </label>
+                        <input type="text" class="form-control" id="nome" name="nome" placeholder="Mario" required
+                            autocomplete="given-name" />
+                    </div>
+
+                    <!-- Cognome -->
+                    <div class="mb-3">
+                        <label for="cognome" class="form-label fw-semibold">
+                            Cognome <span class="text-danger">*</span>
+                        </label>
+                        <input type="text" class="form-control" id="cognome" name="cognome" placeholder="Rossi" required
+                            autocomplete="family-name" />
+                    </div>
+
+                    <!-- Email -->
+                    <div class="mb-3">
+                        <label for="email" class="form-label fw-semibold">
+                            Email <span class="text-danger">*</span>
+                        </label>
+                        <input type="email" class="form-control" id="email" name="email"
+                            placeholder="nome.cognome@studio.unibo.it" required autocomplete="email" />
+                    </div>
+
+                    <!-- Password -->
+                    <div class="mb-3">
+                        <label for="password" class="form-label fw-semibold">
+                            Password <span class="text-danger">*</span>
+                        </label>
+                        <input type="password" class="form-control" id="password" name="password"
+                            placeholder="Inserisci una password sicura" minlength="8" required
+                            autocomplete="new-password" aria-describedby="passwordHelp" />
+                        <div id="passwordHelp" class="form-text">
+                            Minimo 8 caratteri. Usa lettere, numeri e simboli.
+                        </div>
+                    </div>
+
+                    <!-- Conferma Password -->
+                    <div class="mb-3">
+                        <label for="confermaPassword" class="form-label fw-semibold">
+                            Conferma password <span class="text-danger">*</span>
+                        </label>
+                        <input type="password" class="form-control" id="confermaPassword" name="conferma_password"
+                            placeholder="Ripeti la password" minlength="8" required autocomplete="new-password" />
+                    </div>
+
+                    <!-- Divider -->
+                    <hr class="my-4">
+
+                    <p class="text-muted small mb-3">
+                        <strong>Informazioni opzionali</strong> (potrai aggiungerle anche dopo)
+                    </p>
+
+                    <!-- Corso di Laurea (opzionale) -->
+                    <div class="mb-3">
+                        <label for="corso" class="form-label fw-semibold">
+                            Corso di laurea
+                        </label>
+                        <select class="form-select" id="corso" name="corso_laurea_id">
+                            <option value="" selected>Seleziona il tuo corso (opzionale)</option>
+                            <option value="1">Informatica (L31)</option>
+                            <option value="2">Ingegneria Informatica (L8)</option>
+                            <option value="3">Ingegneria Elettronica (L8)</option>
+                            <option value="4">Informatica (LM18)</option>
+                            <!-- Aggiungi altri corsi dal DB -->
+                        </select>
+                    </div>
+
+                    <!-- Telegram (opzionale) -->
+                    <div class="mb-4">
+                        <label for="telegram" class="form-label fw-semibold">
+                            Telegram
+                        </label>
+                        <div class="input-group">
+                            <span class="input-group-text">@</span>
+                            <input type="text" class="form-control" id="telegram" name="telegram"
+                                placeholder="nomeutente" pattern="[a-zA-Z0-9_]{5,32}" required="false" />
+                        </div>
+                        <div class="form-text">
+                            Utile per essere contattato dai membri del gruppo
+                        </div>
+                    </div>
+
+                    <!-- Bottone Submit -->
+                    <div class="d-grid mb-3">
+                        <button type="submit" class="btn btn-primary btn-lg">
+                            Crea account
+                        </button>
+                    </div>
+
+                    <!-- Link login -->
+                    <div class="text-center">
+                        <p class="mb-0 text-muted">
+                            Hai già un account?
+                            <a href="login.php" class="text-decoration-none fw-semibold">
+                                Accedi
+                            </a>
+                        </p>
+                    </div>
+
+                </form>
+            </div>
         </div>
     </main>
 
@@ -222,7 +179,7 @@
         const password = document.getElementById('password');
         const confermaPassword = document.getElementById('confermaPassword');
 
-        confermaPassword.addEventListener('input', function() {
+        confermaPassword.addEventListener('input', function () {
             if (password.value !== confermaPassword.value) {
                 confermaPassword.setCustomValidity('Le password non coincidono');
             } else {

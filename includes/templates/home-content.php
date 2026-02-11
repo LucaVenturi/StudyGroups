@@ -4,7 +4,7 @@
     <p class="lead fw-normal fs-4 mb-4">Il tuo punto di riferimento per trovare e creare gruppi di studio efficaci.</p>
     <nav aria-label="Azioni principali">
         <a class="btn btn-outline-primary btn-lg me-2 mb-2" href="#">Esplora il sito</a>
-        <a class="btn btn-primary btn-lg mb-2" href="#">Accedi</a>
+        <a class="btn btn-primary btn-lg mb-2" href="login.php">Accedi</a>
     </nav>
 </section>
 
@@ -54,5 +54,5 @@
 <section class="container-fluid p-5 text-center bg-body-secondary text-dark">
     <h2 class="fw-bold mb-3">Pronto per iniziare?</h2>
     <p class="lead mb-4">Unisciti ad altri studenti che stanno già usando StudyGroups!</p>
-    <a class="btn btn-dark btn-lg" href="#">Registrati ora</a>
+    <a class="btn btn-dark btn-lg" href="register.php">Registrati ora</a>
 </section>

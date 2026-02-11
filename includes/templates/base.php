@@ -23,8 +23,8 @@ $page_title = "StudyGroups - " . ($templateParams["title"] ?? "Home");
 
     <main>
         <?php
-        if (isset($templateParams["mainContent"])) {
-            require $templateParams["mainContent"];
+        if (isset($templateParams["main_content"])) {
+            require $templateParams["main_content"];
         } else {
             echo "<p class='text-center my-5'>Contenuto non disponibile.</p>";
         }

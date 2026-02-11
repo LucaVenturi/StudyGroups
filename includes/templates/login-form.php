@@ -49,9 +49,9 @@
                 </div>
 
                 <!-- Messaggio di errore login -->
-                <?php if (isset($templateParams["erroreLogin"])): ?>
+                <?php if (isset($templateParams["login_error"])): ?>
                     <div class="alert alert-danger" role="alert">
-                        <?php echo $templateParams["erroreLogin"]; ?>
+                        <?php echo $templateParams["login_error"]; ?>
                     </div>
                 <?php endif; ?>
                 

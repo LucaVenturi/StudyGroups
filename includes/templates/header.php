@@ -2,7 +2,7 @@
     $isLoggedIn = isUserLoggedIn();
     $name = $templateParams["name"] ?? "";
     $surname = $templateParams["surname"] ?? "";
-    $displayName = $name . " " . $surname;
+    $displayName = trim($name . " " . $surname) ?: "Area Personale";
     ?>
     <header>
         <nav class="navbar navbar-expand-lg bg-primary navbar-dark">
@@ -34,14 +34,14 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="annunci.php">
                                 Trova un gruppo
                             </a>
                         </li>
                         <!-- Se l'utente non è loggato, mostra "Accedi/Registrati". -->
                         <?php if (!$isLoggedIn): ?>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="login.php">
                                 Accedi/Registrati
                             </a>
                         </li>
@@ -56,10 +56,7 @@
                                 aria-expanded="false"
                             >
                                 <?php 
-                                    if (empty($displayName))
-                                        echo "Area Personale";
-                                    else
-                                        echo htmlspecialchars($displayName);
+                                    echo htmlspecialchars($displayName);
                                 ?>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end">
@@ -75,7 +72,7 @@
                                 </li>
                                 <li><hr class="dropdown-divider"></li>
                                 <li>
-                                    <a class="dropdown-item" href="#">
+                                    <a class="dropdown-item" href="/StudyGroups/includes/api/process-logout.php">
                                         Logout
                                     </a>
                                 </li>
