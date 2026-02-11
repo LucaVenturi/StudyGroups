@@ -17,11 +17,11 @@ $page_title = "StudyGroups - " . ($templateParams["title"] ?? "Home");
     <link href="../assets/css/custom.css" rel="stylesheet" />
 </head>
 
-<body>
+<body class="d-flex flex-column min-vh-100">
 
     <?php require 'header.php'; ?>
 
-    <main>
+    <main class="flex-grow-1">
         <?php
         if (isset($templateParams["main_content"])) {
             require $templateParams["main_content"];
