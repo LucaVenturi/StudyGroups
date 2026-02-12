@@ -1,7 +1,17 @@
 <?php
 
+$groupId = $templateParams['group']['id'];
 $creator = $templateParams['creator'];
-$partecipants = $templateParams['partecipants'];
+$participants = $templateParams['partecipants'];
+$isUserParticipant = false;
+
+if (isUserLoggedIn()) {
+    $user = getLoggedUser();
+    $isUserParticipant = (
+        $creator["id"] == $user["id"]
+        || in_array($user["id"], array_column($participants, "id"))
+    );
+}
 
 ?>
 
@@ -12,13 +22,12 @@ $partecipants = $templateParams['partecipants'];
     <div class="card-body p-2">
         <!-- CREATORE DEL GRUPPO -->
         <div class="d-flex align-items-start mb-3">
-            <img 
-                src="../assets/img/<?php echo $creator["foto_profilo"] ?>" 
-                alt="" 
-                width="50" 
+            <img
+                src="../assets/img/<?php echo $creator["foto_profilo"] ?>"
+                alt=""
+                width="50"
                 height="50"
-                class="rounded-circle object-fit-cover me-2" 
-            />
+                class="rounded-circle object-fit-cover me-2" />
             <div>
                 <div class="fw-semibold"><?php echo $creator["nome"] ?></div>
                 <div class="small text-muted">Email: <?php echo $creator["email"] ?></div>
@@ -26,26 +35,55 @@ $partecipants = $templateParams['partecipants'];
             </div>
         </div>
 
+        <hr />
+
         <!-- Partecipanti -->
-        <?php foreach ($partecipants as $partecipante): ?>
-            <div class="d-flex align-items-start mb-3">
-                <img 
-                    src="../assets/img/<?php echo $partecipante["foto_profilo"] ?>" 
-                    alt="" 
-                    width="50" 
-                    height="50"
-                    class="rounded-circle object-fit-cover me-2" />
-                <div>
-                    <div class="fw-semibold"><?php echo $partecipante["nome"] ?></div>
-                    <div class="small text-muted">Email: <?php echo $partecipante["email"] ?></div>
-                    <div class="small text-muted">Telegram: @<?php echo $partecipante["telegram"] ?></div>
+        <?php if (isUserLoggedIn() && $isUserParticipant): ?>
+            <?php foreach ($participants as $participant): ?>
+                <div class="d-flex align-items-start mb-3">
+                    <img
+                        src="../assets/img/<?php echo $participant["foto_profilo"] ?>"
+                        alt=""
+                        width="50"
+                        height="50"
+                        class="rounded-circle object-fit-cover me-2" />
+                    <div>
+                        <div class="fw-semibold"><?php echo $participant["nome"] ?></div>
+                        <div class="small text-muted">Email: <?php echo $participant["email"] ?></div>
+                        <div class="small text-muted">Telegram: @<?php echo $participant["telegram"] ?></div>
+                    </div>
                 </div>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <!-- Messaggio che dice di loggarsi/unirsi al gruppo per vedere tutti i partecipanti. -->
+            <div class="alert alert-light border-0 small text-muted mb-0">
+                <?php if (!isUserLoggedIn()): ?>
+                    <a href="login.php" class="fw-semibold">Accedi</a> per vedere gli altri partecipanti.
+                <?php else: ?>
+                    Unisciti al gruppo per vedere gli altri partecipanti e i loro contatti.
+                <?php endif; ?>
             </div>
-        <?php endforeach; ?>
+        <?php endif; ?>
     </div>
 
     <!-- FOOTER CON IL PULSANTE -->
-    <div class="card-footer text-center">
-        <a href="#" class="btn btn-primary w-100">Unisciti al gruppo</a>
-    </div>
+    <?php if (isUserLoggedIn()): ?>
+        <?php if ($isUserParticipant): ?>
+            <div class="card-footer text-center">
+                <a
+                    href="/StudyGroups/includes/api/process-memberships.php?group_id=<?php echo $groupId ?>&action=leave"
+                    class="btn btn-danger w-100">
+                    Abbandona il gruppo
+                </a>
+            </div>
+        <?php else: ?>
+            <div class="card-footer text-center">
+                <a
+                    href="/StudyGroups/includes/api/process-memberships.php?group_id=<?php echo $groupId ?>&action=join"
+                    class="btn btn-primary w-100">
+                    Unisciti al gruppo
+                </a>
+            </div>
+        <?php endif; ?>
+    <?php endif; ?>
 </div>

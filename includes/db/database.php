@@ -238,7 +238,7 @@ class DatabaseHelper {
             FROM partecipazioni p
             JOIN utenti u 
                 ON p.id_partecipante = u.id
-            JOIN corsi_di_laurea cdl 
+            LEFT JOIN corsi_di_laurea cdl
                 ON u.id_cdl = cdl.id
             WHERE p.id_gruppo = ?;
         SQL;
@@ -248,5 +248,68 @@ class DatabaseHelper {
         $result = $stmt->get_result();
 
         return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    function doesGroupExist($groupId) {
+        $query = <<<SQL
+            SELECT EXISTS(
+                SELECT 1 FROM gruppi WHERE id = ?
+            ) AS group_exists;
+        SQL;
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("i", $groupId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return (bool)$result->fetch_assoc()['group_exists'];
+    }
+
+    function isUserGroupCreator($userId, $groupId) {
+        $query = <<<SQL
+            SELECT EXISTS(
+                SELECT 1 FROM gruppi 
+                WHERE id = ? AND id_creatore = ?
+            ) AS is_creator;
+        SQL;
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("ii", $groupId, $userId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return (bool)$result->fetch_assoc()['is_creator'];
+    }
+
+    function isUserGroupParticipant($userId, $groupId) {
+        $query = <<<SQL
+            SELECT EXISTS(
+                SELECT 1 FROM partecipazioni 
+                WHERE id_gruppo = ? AND id_partecipante = ?
+            ) AS is_partecipant;
+        SQL;
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("ii", $groupId, $userId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return (bool)$result->fetch_assoc()['is_partecipant'];
+    }
+
+    function joinGroup($userId, $groupId) {
+        $query = <<<SQL
+            INSERT INTO partecipazioni(id_gruppo, id_partecipante)
+            VALUES (?, ?);
+        SQL;
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("ii", $groupId, $userId);
+        $stmt->execute();
+        return $stmt->affected_rows > 0;
+    }
+
+    function leaveGroup($userId, $groupId) {
+        $query = <<<SQL
+            DELETE FROM partecipazioni
+            WHERE id_gruppo = ? AND id_partecipante = ?;
+        SQL;
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("ii", $groupId, $userId);
+        $stmt->execute();
+        return $stmt->affected_rows > 0;
     }
 }

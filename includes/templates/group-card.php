@@ -12,7 +12,7 @@ $context = $context ?? 'list';
 <article class="card border-primary mb-3 shadow-sm">
     <header class="card-header d-flex justify-content-between align-items-center">
         <h2 class="card-title h5 mb-0 text-truncate"><?= htmlspecialchars($group['titolo'] ?? '') ?></h2>
-        <span class="badge bg-primary fs-6 flex-shrink-0"><?= $group['num_partecipanti'] ?>/<?= $group['max_partecipanti'] ?></span>
+        <span class="badge bg-primary fs-6 flex-shrink-0"><?= $group['num_partecipanti']+1 ?>/<?= $group['max_partecipanti'] ?></span>
     </header>
 
     <div class="card-body">

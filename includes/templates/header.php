@@ -2,6 +2,7 @@
 $isLoggedIn = isUserLoggedIn();
 $user = $isLoggedIn ? getLoggedUser() : null;
 $displayName = $user ? trim($user['nome'] . ' ' . $user['cognome']) : 'Area Personale';
+$currentPage = basename($_SERVER['PHP_SELF']);
 ?>
 
 <header>
@@ -28,19 +29,19 @@ $displayName = $user ? trim($user['nome'] . ' ' . $user['cognome']) : 'Area Pers
             <div class="collapse navbar-collapse" id="navbarToggler">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">
+                        <a class="nav-link <?php echo $currentPage === 'index.php' ? 'active' : ''; ?>" aria-current="page" href="index.php">
                             Home
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="annunci.php">
+                        <a class="nav-link <?php echo in_array($currentPage, array("annunci.php", "dettagli-gruppo.php")) ? 'active' : ''; ?>" href="annunci.php">
                             Trova un gruppo
                         </a>
                     </li>
                     <!-- Se l'utente non è loggato, mostra "Accedi/Registrati". -->
                     <?php if (!$isLoggedIn): ?>
                         <li class="nav-item">
-                            <a class="nav-link" href="login.php">
+                            <a class="nav-link <?php echo in_array($currentPage, array("login.php", "register.php")) ? 'active' : ''; ?>" href="login.php">
                                 Accedi/Registrati
                             </a>
                         </li>
