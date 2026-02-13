@@ -312,4 +312,16 @@ class DatabaseHelper {
         $stmt->execute();
         return $stmt->affected_rows > 0;
     }
+
+    function deleteGroup($groupId) {
+        $query = <<<SQL
+            DELETE FROM gruppi
+            WHERE id = ?;
+        SQL;
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("i", $groupId);
+        $stmt->execute();
+        
+        return $stmt->affected_rows > 0;
+    }
 }

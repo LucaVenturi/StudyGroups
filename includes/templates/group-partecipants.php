@@ -70,19 +70,25 @@ if (isUserLoggedIn()) {
     <?php if (isUserLoggedIn()): ?>
         <?php if ($isUserParticipant): ?>
             <div class="card-footer text-center">
-                <a
-                    href="/StudyGroups/includes/api/process-memberships.php?group_id=<?php echo $groupId ?>&action=leave"
-                    class="btn btn-danger w-100">
-                    Abbandona il gruppo
-                </a>
+                <form
+                    action="/StudyGroups/includes/api/group-actions/leave.php"
+                    method="POST">
+                    <input type="hidden" name="group_id" value="<?php echo $groupId ?>">
+                    <button type="submit" class="btn btn-danger w-100">
+                        Abbandona il gruppo
+                    </button>
+                </form>
             </div>
         <?php else: ?>
             <div class="card-footer text-center">
-                <a
-                    href="/StudyGroups/includes/api/process-memberships.php?group_id=<?php echo $groupId ?>&action=join"
-                    class="btn btn-primary w-100">
-                    Unisciti al gruppo
-                </a>
+                <form
+                    action="/StudyGroups/includes/api/group-actions/join.php"
+                    method="POST">
+                    <input type="hidden" name="group_id" value="<?php echo $groupId ?>">
+                    <button type="submit" class="btn btn-primary w-100">
+                        Unisciti al gruppo
+                    </button>
+                </form>
             </div>
         <?php endif; ?>
     <?php endif; ?>
