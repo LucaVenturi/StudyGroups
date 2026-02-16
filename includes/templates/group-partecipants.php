@@ -7,10 +7,8 @@ $isUserParticipant = false;
 
 if (isUserLoggedIn()) {
     $user = getLoggedUser();
-    $isUserParticipant = (
-        $creator["id"] == $user["id"]
-        || in_array($user["id"], array_column($participants, "id"))
-    );
+    $isUserParticipant = $dbHelper->isUserGroupParticipant($user['id'], $groupId);
+    $isUserCreator = $dbHelper->isUserGroupCreator($user['id'], $groupId);
 }
 
 ?>
@@ -38,7 +36,7 @@ if (isUserLoggedIn()) {
         <hr />
 
         <!-- Partecipanti -->
-        <?php if (isUserLoggedIn() && $isUserParticipant): ?>
+        <?php if (isUserLoggedIn() && ($isUserParticipant || $isUserCreator)): ?>
             <?php foreach ($participants as $participant): ?>
                 <div class="d-flex align-items-start mb-3">
                     <img
@@ -68,7 +66,7 @@ if (isUserLoggedIn()) {
 
     <!-- FOOTER CON IL PULSANTE -->
     <?php if (isUserLoggedIn()): ?>
-        <?php if ($isUserParticipant): ?>
+        <?php if ($isUserParticipant || $isUserCreator): ?>
             <div class="card-footer text-center">
                 <form
                     action="/StudyGroups/includes/api/group-actions/leave.php"

@@ -91,8 +91,11 @@ class DatabaseHelper {
                 u.cognome AS cognome_creatore,
                 u.foto_profilo AS foto_profilo_creatore
             FROM gruppi g
-            JOIN materie m ON g.nome_materia_studiata = m.nome AND g.id_cdl = m.id_cdl
-            JOIN corsi_di_laurea cdl ON m.id_cdl = cdl.id
+            JOIN materie m 
+                ON g.nome_materia_studiata = m.nome 
+                AND g.id_cdl = m.id_cdl
+            JOIN corsi_di_laurea cdl 
+                ON m.id_cdl = cdl.id
             JOIN utenti u ON g.id_creatore = u.id
             WHERE EXISTS (
                 SELECT 1 FROM partecipazioni p
@@ -188,9 +191,13 @@ class DatabaseHelper {
                 u.cognome AS cognome_creatore,
                 u.foto_profilo AS foto_profilo_creatore
             FROM gruppi g
-            JOIN materie m ON g.nome_materia_studiata = m.nome AND g.id_cdl = m.id_cdl
-            JOIN corsi_di_laurea cdl ON m.id_cdl = cdl.id
-            JOIN utenti u ON g.id_creatore = u.id
+            JOIN materie m 
+                ON g.nome_materia_studiata = m.nome 
+                AND g.id_cdl = m.id_cdl
+            JOIN corsi_di_laurea cdl 
+                ON m.id_cdl = cdl.id
+            JOIN utenti u 
+                ON g.id_creatore = u.id
             WHERE g.id = ?;
         SQL;
         $stmt = $this->db->prepare($query);
@@ -214,7 +221,7 @@ class DatabaseHelper {
             FROM gruppi g
             JOIN utenti u 
                 ON g.id_creatore = u.id
-            JOIN corsi_di_laurea cdl 
+            LEFT JOIN corsi_di_laurea cdl 
                 ON u.id_cdl = cdl.id
             WHERE g.id = ?;
         SQL;

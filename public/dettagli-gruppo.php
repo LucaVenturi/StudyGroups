@@ -7,7 +7,7 @@ if (!isset($_GET['id'])) {
     exit();
 }
 
-$groupId = $_GET['id'];
+$groupId = (int) $_GET['id'];
 
 $templateParams = array(
     "title" => "Dettagli Gruppo",
