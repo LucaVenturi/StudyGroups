@@ -7,19 +7,22 @@ $group = $templateParams["group"];
 
 <div class="container-fluid p-5">
     <form method="POST" action="/StudyGroups/includes/api/group-actions/<?php
-    switch ($action) {
-        case 'edit':
-            echo "edit.php";
-            break;
-        case 'insert':
-            echo "insert.php";
-            break;
-        default:
-            echo '#';
-            break;
-    }?>">
+                                                                        switch ($action) {
+                                                                            case 'edit':
+                                                                                echo "edit.php";
+                                                                                break;
+                                                                            case 'insert':
+                                                                                echo "insert.php";
+                                                                                break;
+                                                                            default:
+                                                                                echo '#';
+                                                                                break;
+                                                                        } ?>">
         <ul>
-            <input type="hidden" name="group_id" value="<?= $group["id"] ?>" />
+            <?php if ($action == 'edit') : ?>
+                <input type="hidden" name="group_id" value="<?= $group["id"] ?>" />
+            <?php endif; ?>
+
             <li>
                 <label for="title">Titolo:</label>
                 <input type="text" id="title" name="title" value="<?= $group["titolo"] ?>" />
@@ -27,9 +30,7 @@ $group = $templateParams["group"];
 
             <li>
                 <label for="description">Descrizione:</label>
-                <textarea id="description" name="description">
-                    <?= $group["descrizione"] ?>
-                </textarea>
+                <textarea id="description" name="description"><?= $group["descrizione"] ?></textarea>
             </li>
 
             <li>
@@ -44,11 +45,11 @@ $group = $templateParams["group"];
 
             <li>
                 <label for="course_id">Corso di laurea:</label>
-                <select id="course_id" name="course_id">
-                    <option value="">Seleziona un corso di laurea</option>
+                <select id="course_id" name="course_id" required>
+                    <option value="" disabled selected>Seleziona un corso di laurea</option>
                     <?php foreach ($templateParams["courses"] as $course) : ?>
                         <option value="<?= $course["id"] ?>" <?php echo $course["id"] == $group["id_cdl"] ? 'selected' : '' ?>>
-                            <?php echo $course["nome"]; ?>
+                            <?= $course["nome"] ?>
                         </option>
                     <?php endforeach; ?>
                 </select>
@@ -56,13 +57,13 @@ $group = $templateParams["group"];
 
             <li>
                 <label for="subject">Materia:</label>
-                <select id="subject" name="subject">
+                <select id="subject" disabled name="subject">
                     <?php if (!empty($group["materia"])) : ?>
                         <option value="<?php echo $group["materia"] ?>">
                             <?= $group["materia"] ?>
                         </option>
                     <?php else: ?>
-                        <option value="">Seleziona una materia</option>
+                        <option value="" selected disabled>Seleziona una materia</option>
                     <?php endif; ?>
                 </select>
             </li>

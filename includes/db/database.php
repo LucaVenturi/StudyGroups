@@ -1,8 +1,10 @@
 <?php
-class DatabaseHelper {
+class DatabaseHelper
+{
     private $db;
 
-    public function __construct($servername, $username, $password, $dbname, $port) {
+    public function __construct($servername, $username, $password, $dbname, $port)
+    {
         $this->db = new mysqli($servername, $username, $password, $dbname, $port);
         if ($this->db->connect_error) {
             die("Connection failed: " . $this->db->connect_error);
@@ -10,7 +12,8 @@ class DatabaseHelper {
         $this->db->set_charset("utf8mb4");
     }
 
-    public function getGroups() {
+    public function getGroups()
+    {
         $query = <<<SQL
                 SELECT
                     g.id,
@@ -31,7 +34,7 @@ class DatabaseHelper {
                     ON m.id_cdl = cdl.id
                 JOIN utenti AS u
                     ON g.id_creatore = u.id
-                JOIN partecipazioni AS p
+                LEFT JOIN partecipazioni AS p
                     ON g.id = p.id_gruppo
                 GROUP BY g.id
             SQL;
@@ -44,39 +47,40 @@ class DatabaseHelper {
 
     function getGroupsCreatedBy($userId) {
         $query = <<<SQL
-                SELECT
-                    g.id,
-                    g.titolo,
-                    g.descrizione,
-                    g.data_esame,
-                    COUNT(p.id_partecipante) AS num_partecipanti,
-                    g.max_partecipanti,
-                    cdl.nome AS corso_di_laurea,
-                    m.nome AS materia,
-                    u.nome AS nome_creatore,
-                    u.cognome AS cognome_creatore,
-                    u.foto_profilo as foto_profilo_creatore
-                FROM gruppi AS g
-                JOIN materie AS m
-                    ON g.nome_materia_studiata = m.nome AND g.id_cdl = m.id_cdl
-                JOIN corsi_di_laurea AS cdl
-                    ON m.id_cdl = cdl.id
-                JOIN utenti AS u
-                    ON g.id_creatore = u.id
-                JOIN partecipazioni AS p
-                    ON g.id = p.id_gruppo
-                WHERE g.id_creatore = ?
-                GROUP BY g.id
-            SQL;
+            SELECT
+                g.id,
+                g.titolo,
+                g.descrizione,
+                g.data_esame,
+                COUNT(p.id_partecipante) AS num_partecipanti,
+                g.max_partecipanti,
+                cdl.nome AS corso_di_laurea,
+                m.nome AS materia,
+                u.nome AS nome_creatore,
+                u.cognome AS cognome_creatore,
+                u.foto_profilo as foto_profilo_creatore
+            FROM gruppi AS g
+            JOIN materie AS m
+                ON g.nome_materia_studiata = m.nome AND g.id_cdl = m.id_cdl
+            JOIN corsi_di_laurea AS cdl
+                ON m.id_cdl = cdl.id
+            JOIN utenti AS u
+                ON g.id_creatore = u.id
+            LEFT JOIN partecipazioni AS p
+                ON g.id = p.id_gruppo
+            WHERE g.id_creatore = ?
+            GROUP BY g.id
+        SQL;
         $stmt = $this->db->prepare($query);
         $stmt->bind_param("i", $userId);
         $stmt->execute();
         $result = $stmt->get_result();
 
-        return $result->fetch_all(MYSQLI_ASSOC); 
+        return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    function getGroupsWithParticipant($userId) {
+    function getGroupsWithParticipant($userId)
+    {
         $query = <<<SQL
             SELECT
                 g.id,
@@ -107,10 +111,11 @@ class DatabaseHelper {
         $stmt->execute();
         $result = $stmt->get_result();
 
-        return $result->fetch_all(MYSQLI_ASSOC); 
+        return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    function checkLogin($email, $password) {
+    function checkLogin($email, $password)
+    {
         $query = <<<SQL
                 SELECT * 
                 FROM utenti 
@@ -140,7 +145,8 @@ class DatabaseHelper {
      * @param string|null $telegram Il contatto Telegram dell'utente (opzionale)
      * @return array|false I dati dell'utente registrato o false in caso di errore
      */
-    function registerUser($name, $surname, $email, $password, $course = null, $telegram = null) {
+    function registerUser($name, $surname, $email, $password, $course = null, $telegram = null)
+    {
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
         $query = <<<SQL
@@ -164,7 +170,8 @@ class DatabaseHelper {
     /***
      * Recupera un utente dal database dato il suo ID.
      */
-    function getUserById($id) {
+    function getUserById($id)
+    {
         $query = "SELECT id, nome, cognome, email, foto_profilo, is_admin, telegram, id_cdl FROM utenti WHERE id = ?";
         $stmt = $this->db->prepare($query);
         $stmt->bind_param("i", $id);
@@ -175,7 +182,8 @@ class DatabaseHelper {
         return $user;
     }
 
-    function getGroupById($groupId) {
+    function getGroupById($groupId)
+    {
         $query = <<<SQL
             SELECT
                 g.id,
@@ -208,7 +216,8 @@ class DatabaseHelper {
         return $result->fetch_assoc();
     }
 
-    function getGroupCreator($groupId) {
+    function getGroupCreator($groupId)
+    {
         $query = <<<SQL
             SELECT 
                 u.id, 
@@ -233,7 +242,8 @@ class DatabaseHelper {
         return $result->fetch_assoc();
     }
 
-    function getGroupPartecipants($groupId) {
+    function getGroupPartecipants($groupId)
+    {
         $query = <<<SQL
             SELECT 
                 u.id, 
@@ -258,7 +268,8 @@ class DatabaseHelper {
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    function doesGroupExist($groupId) {
+    function doesGroupExist($groupId)
+    {
         $query = <<<SQL
             SELECT EXISTS(
                 SELECT 1 FROM gruppi WHERE id = ?
@@ -271,7 +282,8 @@ class DatabaseHelper {
         return (bool)$result->fetch_assoc()['group_exists'];
     }
 
-    function isUserGroupCreator($userId, $groupId) {
+    function isUserGroupCreator($userId, $groupId)
+    {
         $query = <<<SQL
             SELECT EXISTS(
                 SELECT 1 FROM gruppi 
@@ -285,7 +297,8 @@ class DatabaseHelper {
         return (bool)$result->fetch_assoc()['is_creator'];
     }
 
-    function isUserGroupParticipant($userId, $groupId) {
+    function isUserGroupParticipant($userId, $groupId)
+    {
         $query = <<<SQL
             SELECT EXISTS(
                 SELECT 1 FROM partecipazioni 
@@ -299,7 +312,8 @@ class DatabaseHelper {
         return (bool)$result->fetch_assoc()['is_partecipant'];
     }
 
-    function joinGroup($userId, $groupId) {
+    function joinGroup($userId, $groupId)
+    {
         $query = <<<SQL
             INSERT INTO partecipazioni(id_gruppo, id_partecipante)
             VALUES (?, ?);
@@ -310,7 +324,8 @@ class DatabaseHelper {
         return $stmt->affected_rows > 0;
     }
 
-    function leaveGroup($userId, $groupId) {
+    function leaveGroup($userId, $groupId)
+    {
         $query = <<<SQL
             DELETE FROM partecipazioni
             WHERE id_gruppo = ? AND id_partecipante = ?;
@@ -321,7 +336,8 @@ class DatabaseHelper {
         return $stmt->affected_rows > 0;
     }
 
-    function deleteGroup($groupId) {
+    function deleteGroup($groupId)
+    {
         $query = <<<SQL
             DELETE FROM gruppi
             WHERE id = ?
@@ -329,14 +345,17 @@ class DatabaseHelper {
         $stmt = $this->db->prepare($query);
         $stmt->bind_param("i", $groupId);
         $stmt->execute();
-        
+
         return $stmt->affected_rows > 0;
     }
 
-    function insertGroup($title, $description, $examDate, $maxParticipants, $courseId, $subject, $creatorId) {
+    function insertGroup($title, $description, $examDate, $maxParticipants, $courseId, $subject, $creatorId)
+    {
         $query = <<<SQL
             INSERT INTO gruppi(titolo, descrizione, data_esame, max_partecipanti, id_cdl, nome_materia_studiata, id_creatore)
             VALUES (?, ?, ?, ?, ?, ?, ?);
+
+            INSERT INTO 
         SQL;
         $stmt = $this->db->prepare($query);
         $stmt->bind_param("sssiisi", $title, $description, $examDate, $maxParticipants, $courseId, $subject, $creatorId);
@@ -345,20 +364,22 @@ class DatabaseHelper {
         return $stmt->affected_rows > 0;
     }
 
-    function editGroup($groupId, $title, $description, $examDate, $maxParticipants, $courseId, $subject) {
+    function editGroup($groupId, $title, $description, $examDate, $maxParticipants, $courseId, $subject)
+    {
         $query = <<<SQL
             UPDATE gruppi
             SET titolo = ?, descrizione = ?, data_esame = ?, max_partecipanti = ?, id_cdl = ?, nome_materia_studiata = ?
             WHERE id = ?;
         SQL;
-        $stmt = $this->db->prepare($query);     
+        $stmt = $this->db->prepare($query);
         $stmt->bind_param("sssiisi", $title, $description, $examDate, $maxParticipants, $courseId, $subject, $groupId);
         $stmt->execute();
 
         return $stmt->affected_rows > 0;
     }
 
-    function getCourses() {
+    function getCourses()
+    {
         $query = <<<SQL
             SELECT * FROM corsi_di_laurea;
         SQL;
@@ -368,5 +389,20 @@ class DatabaseHelper {
 
         return $result->fetch_all(MYSQLI_ASSOC);
     }
-}
 
+    public function getSubjectsByCourse($courseId)
+    {
+        $query = <<<SQL
+            SELECT * 
+            FROM materie 
+            WHERE id_cdl = ?;
+        SQL;
+
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("i", $courseId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+}

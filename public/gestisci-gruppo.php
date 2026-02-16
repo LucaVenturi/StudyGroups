@@ -21,8 +21,10 @@ if (!isset($_GET['action'])) {
 $action = $_GET['action'];
 
 switch ($action) {
-    // Azione di modifica di un gruppo.
     case 'edit':
+        // Setto il titolo della pagina.
+        $title = "Modifica gruppo";
+
         // Se non è stato passato l'id del gruppo manda risposta di errore.
         if (!isset($_GET['group_id'])) {
             http_response_code(400);
@@ -47,12 +49,13 @@ switch ($action) {
         // Recupera i dati del gruppo.
         $group = $dbHelper->getGroupById($groupId);
         break;
-    // Azione di inserimento di un nuovo gruppo.
     case 'insert':
+        // Setto il titolo della pagina.
+        $title = "Crea gruppo";
+
         // Creo un gruppo vuoto.
         $group = array("titolo" => "", "descrizione" => "", "data_esame" => "", "max_partecipanti" => "", "id_cdl" => "", "corso_di_laurea" => "", "materia" => "");
         break;
-    // Non è stata inviata un'azione valida.
     default:
         http_response_code(400);
         exit;
@@ -60,11 +63,12 @@ switch ($action) {
 
 // Setto i parametri richiesti dalla pagina.
 $templateParams = array(
-    "title" => "Dettagli Gruppo",
+    "title" => $title,
     "main_content" => "group-form.php",
     "action" => $action,
     "courses" => $dbHelper->getCourses(),
     "group" => $group,
+    "js" => array('../assets/js/gestisci-gruppo.js')
 );
 
 require(__DIR__ . '/../includes/templates/base.php');

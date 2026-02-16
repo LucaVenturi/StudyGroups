@@ -35,6 +35,17 @@ $page_title = "StudyGroups - " . ($templateParams["title"] ?? "Home");
 
     <!-- JavaScript Bootstrap -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    
+    <!-- JavaScript della pagina -->
+    <?php
+    if (isset($templateParams["js"])):
+        foreach ($templateParams["js"] as $script):
+    ?>
+            <script src="<?php echo $script; ?>"></script>
+    <?php
+        endforeach;
+    endif;
+    ?>
 </body>
 
 </html>

@@ -1,6 +1,6 @@
 <?php
 
-require_once(__DIR__ . '../../init.php');
+require_once(__DIR__ . '/../../init.php');
 
 // Se la richiesta non è POST, risposta di errore.
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
