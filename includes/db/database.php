@@ -181,6 +181,7 @@ class DatabaseHelper {
                 g.data_esame,
                 (SELECT COUNT(*) FROM partecipazioni WHERE id_gruppo = g.id) AS num_partecipanti,
                 g.max_partecipanti,
+                g.id_cdl,
                 cdl.nome AS corso_di_laurea,
                 m.nome AS materia,
                 u.nome AS nome_creatore,
@@ -316,7 +317,7 @@ class DatabaseHelper {
     function deleteGroup($groupId) {
         $query = <<<SQL
             DELETE FROM gruppi
-            WHERE id = ?;
+            WHERE id = ?
         SQL;
         $stmt = $this->db->prepare($query);
         $stmt->bind_param("i", $groupId);
@@ -324,4 +325,41 @@ class DatabaseHelper {
         
         return $stmt->affected_rows > 0;
     }
+
+    function insertGroup($title, $description, $examDate, $maxParticipants, $courseId, $subject, $creatorId) {
+        $query = <<<SQL
+            INSERT INTO gruppi(titolo, descrizione, data_esame, max_partecipanti, id_cdl, nome_materia_studiata, id_creatore)
+            VALUES (?, ?, ?, ?, ?, ?, ?);
+        SQL;
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("sssiisi", $title, $description, $examDate, $maxParticipants, $courseId, $subject, $creatorId);
+        $stmt->execute();
+
+        return $stmt->affected_rows > 0;
+    }
+
+    function editGroup($groupId, $title, $description, $examDate, $maxParticipants, $courseId, $subject) {
+        $query = <<<SQL
+            UPDATE gruppi
+            SET titolo = ?, descrizione = ?, data_esame = ?, max_partecipanti = ?, id_cdl = ?, nome_materia_studiata = ?
+            WHERE id = ?;
+        SQL;
+        $stmt = $this->db->prepare($query);     
+        $stmt->bind_param("sssiisi", $title, $description, $examDate, $maxParticipants, $courseId, $subject, $groupId);
+        $stmt->execute();
+
+        return $stmt->affected_rows > 0;
+    }
+
+    function getCourses() {
+        $query = <<<SQL
+            SELECT * FROM corsi_di_laurea;
+        SQL;
+        $stmt = $this->db->prepare($query);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
 }
+

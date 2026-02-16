@@ -56,19 +56,26 @@ $context = $context ?? 'list';
             </a>
 
             <?php if ($context === 'creator'): ?>
-                <a href="/groups/edit.php?id=<?= (int)$group['id'] ?>"
+                <a 
+                    href="/StudyGroups/public/gestisci-gruppo.php?group_id=<?= (int)$group['id'] ?>&action=edit"
                     class="btn btn-outline-secondary">
                     Modifica
                 </a>
 
-                <button type="button" class="btn btn-outline-danger">
-                    Elimina
-                </button>
+                <form method="POST" action="/StudyGroups/includes/api/group-actions/delete.php">
+                    <input type="hidden" name="group_id" value="<?= (int)$group['id'] ?>" />
+                    <button type="submit" class="btn btn-outline-danger">
+                        Elimina
+                    </button>
+                </form>
 
             <?php elseif ($context === 'participant'): ?>
-                <button type="button" class="btn btn-outline-danger">
-                    Abbandona
-                </button>
+                <form method="POST" action="/StudyGroups/includes/api/group-actions/leave.php">
+                    <input type="hidden" name="group_id" value="<?= (int)$group['id'] ?>" />
+                    <button type="submit" class="btn btn-outline-secondary">
+                        Abbandona
+                    </button>
+                </form>
             <?php endif; ?>
         </div>
     </footer>
