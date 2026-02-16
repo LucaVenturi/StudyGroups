@@ -49,13 +49,13 @@ $currentPage = basename($_SERVER['PHP_SELF']);
                     <?php else: ?>
                         <li class="nav-item dropdown">
                             <a
-                                class="nav-link dropdown-toggle"
+                                class="nav-link dropdown-toggle <?php echo in_array($currentPage, array("mieigruppi.php", "profilo.php")) ? 'active' : ''; ?>"
                                 href="#"
                                 role="button"
                                 data-bs-toggle="dropdown"
                                 aria-expanded="false">
                                 <?php
-                                echo htmlspecialchars($displayName);
+                                    echo htmlspecialchars($displayName);
                                 ?>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end">
@@ -65,7 +65,7 @@ $currentPage = basename($_SERVER['PHP_SELF']);
                                     </a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" href="#">
+                                    <a class="dropdown-item" href="/StudyGroups/public/mieigruppi.php">
                                         I miei gruppi
                                     </a>
                                 </li>
