@@ -11,14 +11,13 @@ $gruppiPartecipante = $templateParams["groups_partecipting_in"] ?? [];
 $gruppiCreati = $templateParams["groups_created"] ?? [];
 ?>
 
-<div class="container py-4">
-    <!-- Titolo pagina
+<div class="container py-4 bg-body text-dark">
+    <!-- Titolo pagina -->
     <div class="row mb-4">
         <div class="col-12">
-            <h1 class="fw-bold text-center">I miei gruppi</h1>
-            <p class="text-center text-muted">Gestisci i gruppi a cui partecipi e quelli che hai creato</p>
+            <h2 class="fw-bold text-center">Gestisci i gruppi a cui partecipi e quelli che hai creato</h1>
         </div>
-    </div> -->
+    </div>
 
     <!-- TAB NAVIGATION -->
     <div class="row mb-3">

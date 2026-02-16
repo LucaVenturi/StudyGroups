@@ -354,8 +354,6 @@ class DatabaseHelper
         $query = <<<SQL
             INSERT INTO gruppi(titolo, descrizione, data_esame, max_partecipanti, id_cdl, nome_materia_studiata, id_creatore)
             VALUES (?, ?, ?, ?, ?, ?, ?);
-
-            INSERT INTO 
         SQL;
         $stmt = $this->db->prepare($query);
         $stmt->bind_param("sssiisi", $title, $description, $examDate, $maxParticipants, $courseId, $subject, $creatorId);

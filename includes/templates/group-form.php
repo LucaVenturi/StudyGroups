@@ -6,46 +6,48 @@ $group = $templateParams["group"];
 ?>
 
 <div class="container-fluid p-5">
-    <form method="POST" action="/StudyGroups/includes/api/group-actions/<?php
-                                                                        switch ($action) {
-                                                                            case 'edit':
-                                                                                echo "edit.php";
-                                                                                break;
-                                                                            case 'insert':
-                                                                                echo "insert.php";
-                                                                                break;
-                                                                            default:
-                                                                                echo '#';
-                                                                                break;
-                                                                        } ?>">
-        <ul>
+    <div class="mx-5 p-5 border rounded border-primary bg-body">
+        <form
+            method="POST"
+            action="/StudyGroups/includes/api/group-actions/<?php
+                                                            switch ($action) {
+                                                                case 'edit':
+                                                                    echo "edit.php";
+                                                                    break;
+                                                                case 'insert':
+                                                                    echo "insert.php";
+                                                                    break;
+                                                                default:
+                                                                    echo '#';
+                                                                    break;
+                                                            }
+                                                            ?>">
             <?php if ($action == 'edit') : ?>
                 <input type="hidden" name="group_id" value="<?= $group["id"] ?>" />
             <?php endif; ?>
 
-            <li>
-                <label for="title">Titolo:</label>
-                <input type="text" id="title" name="title" value="<?= $group["titolo"] ?>" />
-            </li>
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="title" name="title" value="<?= $group["titolo"] ?>" placeholder="Titolo" required />
+                <label for="title" class="form-label">Titolo</label>
+            </div>
 
-            <li>
-                <label for="description">Descrizione:</label>
-                <textarea id="description" name="description"><?= $group["descrizione"] ?></textarea>
-            </li>
+            <div class="form-floating mb-3">
+                <textarea id="description" class="form-control" name="description" placeholder="Descrizione" style="height: 100px;" required><?= $group["descrizione"] ?></textarea>
+                <label for="description" class="form-label" required>Descrizione</label>
+            </div>
 
-            <li>
-                <label for="exam_date">Data esame:</label>
-                <input type="date" id="exam_date" name="exam_date" value="<?= $group["data_esame"] ?>" />
-            </li>
+            <div class="form-floating mb-3">
+                <input type="date" class="form-control" id="exam_date" name="exam_date" value="<?= $group["data_esame"] ?>" placeholder="data esame" />
+                <label for="exam_date" class="form-label">Data esame</label>
+            </div>
 
-            <li>
-                <label for="max_participants">Numero massimo di partecipanti:</label>
-                <input type="number" id="max_participants" name="max_participants" value="<?= $group["max_partecipanti"] ?>" />
-            </li>
+            <div class="form-floating mb-3">
+                <input type="number" class="form-control" id="max_participants" name="max_participants" value="<?= $group["max_partecipanti"] ?>" required />
+                <label for="max_participants" class="form-label">Numero massimo di partecipanti</label>
+            </div>
 
-            <li>
-                <label for="course_id">Corso di laurea:</label>
-                <select id="course_id" name="course_id" required>
+            <div class="form-floating mb-3">
+                <select id="course_id" class="form-select" name="course_id" required>
                     <option value="" disabled selected>Seleziona un corso di laurea</option>
                     <?php foreach ($templateParams["courses"] as $course) : ?>
                         <option value="<?= $course["id"] ?>" <?php echo $course["id"] == $group["id_cdl"] ? 'selected' : '' ?>>
@@ -53,11 +55,11 @@ $group = $templateParams["group"];
                         </option>
                     <?php endforeach; ?>
                 </select>
-            </li>
+                <label for="course_id" class="form-label">Corso di laurea:</label>
+            </div>
 
-            <li>
-                <label for="subject">Materia:</label>
-                <select id="subject" disabled name="subject">
+            <div class="form-floating mb-3">
+                <select id="subject" class="form-select" name="subject" disabled required>
                     <?php if (!empty($group["materia"])) : ?>
                         <option value="<?php echo $group["materia"] ?>">
                             <?= $group["materia"] ?>
@@ -66,14 +68,15 @@ $group = $templateParams["group"];
                         <option value="" selected disabled>Seleziona una materia</option>
                     <?php endif; ?>
                 </select>
-            </li>
+                <label for="subject" class="form-label">Materia:</label>
+            </div>
 
-            <li>
-                <button type="submit" class="btn btn-primary w-100">
+            <div class="mb-3 text-center">
+                <button type="submit" class="btn btn-primary w-25 text-center form-control">
                     Salva
                 </button>
-            </li>
-        </ul>
-    </form>
+            </div>
+        </form>
+    </div>
 
 </div>

@@ -17,7 +17,7 @@ $page_title = "StudyGroups - " . ($templateParams["title"] ?? "Home");
     <link href="../assets/css/custom.css" rel="stylesheet" />
 </head>
 
-<body class="d-flex flex-column min-vh-100">
+<body class="d-flex flex-column min-vh-100 bg-body-secondary text-dark">
 
     <?php require 'header.php'; ?>
 

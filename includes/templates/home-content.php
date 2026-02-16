@@ -9,7 +9,7 @@
 </section>
 
 <!-- Come funziona -->
-<section class="container-fluid p-5">
+<section class="container-fluid p-5 bg-body">
     <h2 class="text-center fw-bold mb-5">Come funziona</h2>
     <div class="row g-4 justify-content-center">
         <article class="col-lg-4 col-md-6">
