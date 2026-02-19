@@ -403,4 +403,48 @@ class DatabaseHelper
 
         return $result->fetch_all(MYSQLI_ASSOC);
     }
+
+    public function getCreatedGroupsCount($userId) {
+        $query = <<<SQL
+            SELECT COUNT(*) AS count
+            FROM gruppi
+            WHERE id_creatore = ?;
+        SQL;
+
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("i", $userId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return (int)$result->fetch_assoc()['count'];
+    }
+
+    public function getJoinedGroupsCount($userId) {
+        $query = <<<SQL
+            SELECT COUNT(*) AS count
+            FROM partecipazioni
+            WHERE id_partecipante = ?;
+        SQL;
+        
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("i", $userId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return (int)$result->fetch_assoc()['count'];
+    }
+
+    public function updateUser($userId, $nome, $cognome, $email, $fotoProfilo, $telegram, $corso) {
+        $query = <<<SQL
+            UPDATE utenti
+            SET nome = ?, cognome = ?, email = ?, foto_profilo = ?, telegram = ?, id_cdl = ?
+            WHERE id = ?;
+        SQL;
+
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("sssssii", $nome, $cognome, $email, $fotoProfilo, $telegram, $corso, $userId);
+        $stmt->execute();
+
+        return $stmt->affected_rows > 0;
+    }
 }
