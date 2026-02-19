@@ -135,11 +135,11 @@ $user = $templateParams["user"];
             </div>
         </section>
 
-                <!-- Eventuale messaggio di errore -->
+        <!-- Eventuale messaggio di errore -->
         <?php if (isset($templateParams["profile_update_error"])): ?>
-            <section class="row g-3">
-                <span class="form-text"><?php echo $templateParams["profile_update_error"] ?></span>
-            </section>
+        <section class="row g-3 m-3">
+            <span class="form-text text-danger"><?php echo $templateParams["profile_update_error"] ?></span>
+        </section>
         <?php endif; ?>
 
         <footer class="row mt-3 justify-content-end">
