@@ -11,7 +11,7 @@ if (!$isUserCreator) {
 // Cancella il gruppo.
 $success = $dbHelper->deleteGroup($groupId);
 if ($success) {
-    header("Location: /StudyGroups/public/mieigruppi.php");
+    header("Location: /StudyGroups/public/miei-gruppi.php");
     exit;
 } else {
     http_response_code(500);

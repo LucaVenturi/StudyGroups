@@ -3,12 +3,12 @@
 
         <!-- DETTAGLI GRUPPO -->
         <div class="col-lg-9 col-12 px-2">
-            <?php require(__DIR__ . '/group-details.php'); ?>
+            <?php require(__DIR__ . '/../cards/group-longdetails-card.php'); ?>
         </div>
 
         <!-- PARTECIPANTI / ASIDE -->
         <aside class="col-lg-3 col-12 px-2">
-            <?php require(__DIR__ . '/group-partecipants.php'); ?>
+            <?php require(__DIR__ . '/../cards/group-participants-card.php'); ?>
         </aside>
     </div>
 </div>

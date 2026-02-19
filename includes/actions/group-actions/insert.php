@@ -42,7 +42,7 @@ $success = $dbHelper->insertGroup(
 );
 
 if ($success) {
-    header("Location: /StudyGroups/public/mieigruppi.php");
+    header("Location: /StudyGroups/public/miei-gruppi.php");
     exit;
 } else {
     http_response_code(500);

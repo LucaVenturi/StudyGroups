@@ -3,7 +3,7 @@
     <h1 class="display-4 fw-bold mb-4">Benvenuto su StudyGroups</h1>
     <p class="lead fw-normal fs-4 mb-4">Il tuo punto di riferimento per trovare e creare gruppi di studio efficaci.</p>
     <nav aria-label="Azioni principali">
-        <a class="btn btn-outline-primary btn-lg me-2 mb-2" href="#">Esplora il sito</a>
+        <a class="btn btn-outline-primary btn-lg me-2 mb-2" href="trova-gruppi.php">Esplora il sito</a>
         <a class="btn btn-primary btn-lg mb-2" href="login.php">Accedi</a>
     </nav>
 </section>

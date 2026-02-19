@@ -13,7 +13,7 @@
     <div class="row justify-content-center">
         <form
             class="col-lg-6 col-md-8 col-sm-12 p-4 p-md-5 border rounded-3 shadow-sm bg-white"
-            action="/StudyGroups/includes/api/process-registration.php"
+            action="/StudyGroups/includes/actions/process-registration.php"
             method="POST">
 
             <!-- Nome -->
@@ -113,7 +113,7 @@
                     <option value="" selected>Seleziona il tuo corso (opzionale)</option>
                     <!-- Aggiunti dal DB -->
                     <?php foreach ($templateParams["courses"] as $course): ?>
-                        <option value="<?= $course["id"] ?>"><?= $course["name"] ?></option>
+                        <option value="<?= $course["id"] ?>"><?= $course["nome"] ?></option>
                     <?php endforeach; ?>
                 </select>
             </div>

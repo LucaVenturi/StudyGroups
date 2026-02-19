@@ -24,8 +24,8 @@
             <?php else : ?>
                 <?php foreach ($templateParams["groups"] as $group) : ?>
                     <?php
-                    $context = "list";
-                    include __DIR__ . "/group-card.php";
+                        $context = "list";
+                        include __DIR__ . "/../cards/group-details-card.php";
                     ?>
                 <?php endforeach; ?>
             <?php endif; ?>

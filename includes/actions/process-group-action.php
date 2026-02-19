@@ -36,7 +36,7 @@ switch ($action) {
             http_response_code(500);
             exit;
         }
-        header("Location: /StudyGroups/public/mieigruppi.php");
+        header("Location: /StudyGroups/public/miei-gruppi.php");
         exit;
     case 'edit':
         // azione per modificare il gruppo.

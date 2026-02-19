@@ -22,7 +22,7 @@ $gruppiCreati = $templateParams["groups_created"] ?? [];
     <!-- TAB NAVIGATION -->
     <div class="row mb-3">
         <div class="col-12">
-            <ul class="nav nav-tabs nav-fill" id="mieiGruppiTab" role="tablist">
+            <ul class="nav nav-tabs nav-fill" id="miei-gruppiTab" role="tablist">
                 <li class="nav-item" role="presentation">
                     <button 
                         class="nav-link active fw-semibold" 
@@ -54,7 +54,7 @@ $gruppiCreati = $templateParams["groups_created"] ?? [];
     </div>
 
     <!-- TAB CONTENT -->
-    <div class="tab-content" id="mieiGruppiTabContent">
+    <div class="tab-content" id="miei-gruppiTabContent">
         
         <!-- TAB 1: PARTECIPO -->
         <div class="tab-pane fade show active" id="partecipo" role="tabpanel" aria-labelledby="partecipo-tab">
@@ -76,7 +76,7 @@ $gruppiCreati = $templateParams["groups_created"] ?? [];
                         <div class="col-lg-6 col-12">
                             <?php 
                                 $context = 'participant'; // Variabile per distinguere il contesto nella card
-                                include 'group-card.php'; 
+                                include __DIR__ . '/../cards/group-details-card.php'; 
                             ?>
                         </div>
                     <?php endforeach; ?>
@@ -116,7 +116,7 @@ $gruppiCreati = $templateParams["groups_created"] ?? [];
                         <div class="col-lg-6 col-12">
                             <?php 
                                 $context = 'creator'; // Variabile per distinguere il contesto nella card
-                                include 'group-card.php'; 
+                                include __DIR__ . '/../cards/group-details-card.php'; 
                             ?>
                         </div>
                     <?php endforeach; ?>

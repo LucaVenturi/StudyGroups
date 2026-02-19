@@ -8,12 +8,12 @@ if(isUserLoggedIn()) {
 }
 
 $templateParams["title"] = "Login";
-$templateParams["main_content"] = "login-form.php";
+$templateParams["main_content"] = __DIR__ . "/../includes/templates/forms/login-form.php";
 if(isset($_SESSION["login_error"])) {
     $templateParams["login_error"] = $_SESSION["login_error"];
     unset($_SESSION["login_error"]);
 }
 
-require(__DIR__ . '/../includes/templates/base.php');
+require(__DIR__ . '/../includes/templates/components/base.php');
 
 ?>

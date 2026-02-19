@@ -12,7 +12,7 @@ $isEditMode = isset($_GET["edit"]) && $_GET["edit"] == 1;
 
 $templateParams = [
     'title'        => 'Il mio profilo',
-    'main_content' => 'profile-content.php',
+    'main_content' => __DIR__ . '/../includes/templates/forms/profile-form.php',
     'user'         => $user,
     'isEditMode'   => $isEditMode,
     'courses'      => $dbHelper->getCourses(),
@@ -26,4 +26,4 @@ if (isset($_SESSION["profile_update_error"])) {
 }
 
 
-require __DIR__ . '/../includes/templates/base.php';
+require(__DIR__ . '/../includes/templates/components/base.php');

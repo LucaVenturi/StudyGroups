@@ -14,7 +14,7 @@
             <form 
                 class="col-lg-5 col-sm-12 p-4 p-md-5 border rounded-3 border-secondary shadow-sm bg-white"
                 method="POST"
-                action="/StudyGroups/includes/api/process-login.php"
+                action="/StudyGroups/includes/actions/process-login.php"
             >
                 <!-- Email -->
                 <div class="mb-3">

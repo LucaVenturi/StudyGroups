@@ -62,7 +62,7 @@ $context = $context ?? 'list';
                     Modifica
                 </a>
 
-                <form method="POST" action="/StudyGroups/includes/api/group-actions/delete.php" class="d-inline-block">
+                <form method="POST" action="/StudyGroups/includes/actions/group-actions/delete.php" class="d-inline-block">
                     <input type="hidden" name="group_id" value="<?= (int)$group['id'] ?>" />
                     <button type="submit" class="btn btn-outline-danger btn-sm">
                         Elimina
@@ -70,7 +70,7 @@ $context = $context ?? 'list';
                 </form>
 
             <?php elseif ($context === 'participant'): ?>
-                <form method="POST" action="/StudyGroups/includes/api/group-actions/leave.php" class="d-inline-block">
+                <form method="POST" action="/StudyGroups/includes/actions/group-actions/leave.php" class="d-inline-block">
                     <input type="hidden" name="group_id" value="<?= (int)$group['id'] ?>" />
                     <button type="submit" class="btn btn-outline-secondary btn-sm">
                         Abbandona

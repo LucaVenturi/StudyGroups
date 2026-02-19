@@ -66,10 +66,10 @@ if (isUserLoggedIn()) {
 
     <!-- FOOTER CON IL PULSANTE -->
     <?php if (isUserLoggedIn()): ?>
-        <?php if ($isUserParticipant || $isUserCreator): ?>
+        <?php if ($isUserParticipant && ! $isUserCreator): ?>
             <div class="card-footer text-center">
                 <form
-                    action="/StudyGroups/includes/api/group-actions/leave.php"
+                    action="/StudyGroups/includes/actions/group-actions/leave.php"
                     method="POST">
                     <input type="hidden" name="group_id" value="<?php echo $groupId ?>">
                     <button type="submit" class="btn btn-danger w-100">
@@ -77,10 +77,10 @@ if (isUserLoggedIn()) {
                     </button>
                 </form>
             </div>
-        <?php else: ?>
+        <?php elseif (!$isUserParticipant && !$isUserCreator): ?>
             <div class="card-footer text-center">
                 <form
-                    action="/StudyGroups/includes/api/group-actions/join.php"
+                    action="/StudyGroups/includes/actions/group-actions/join.php"
                     method="POST">
                     <input type="hidden" name="group_id" value="<?php echo $groupId ?>">
                     <button type="submit" class="btn btn-primary w-100">

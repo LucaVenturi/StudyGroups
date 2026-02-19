@@ -11,12 +11,12 @@ $groupId = (int) $_GET['id'];
 
 $templateParams = array(
     "title" => "Dettagli Gruppo",
-    "main_content" => "group-details-content.php",
+    "main_content" => __DIR__ . "/../includes/templates/contents/group-details-content.php",
     "group" => $dbHelper->getGroupById($groupId),
     "creator" => $dbHelper->getGroupCreator($groupId),
     "partecipants" => $dbHelper->getGroupPartecipants($groupId),
 );
 
-require(__DIR__ . '/../includes/templates/base.php');
+require(__DIR__ . '/../includes/templates/components/base.php');
 
 ?>

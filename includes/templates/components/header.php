@@ -9,9 +9,10 @@ $currentPage = basename($_SERVER['PHP_SELF']);
     <nav class="navbar navbar-expand-lg bg-primary navbar-dark">
         <div class="container-fluid">
             <!-- Titolo della pagina come brand -->
-            <a class="navbar-brand fw-bold" href="#">
+            <span class="navbar-brand fw-bold">
                 <?php echo $page_title ?>
-            </a>
+            </span>
+
             <!-- Menu hamburger per dispositivi mobili -->
             <button
                 class="navbar-toggler"
@@ -34,7 +35,7 @@ $currentPage = basename($_SERVER['PHP_SELF']);
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link <?php echo in_array($currentPage, array("annunci.php", "dettagli-gruppo.php")) ? 'active' : ''; ?>" href="annunci.php">
+                        <a class="nav-link <?php echo in_array($currentPage, array("trova-gruppi.php", "dettagli-gruppo.php")) ? 'active' : ''; ?>" href="trova-gruppi.php">
                             Trova un gruppo
                         </a>
                     </li>
@@ -49,7 +50,7 @@ $currentPage = basename($_SERVER['PHP_SELF']);
                     <?php else: ?>
                         <li class="nav-item dropdown">
                             <a
-                                class="nav-link dropdown-toggle <?php echo in_array($currentPage, array("mieigruppi.php", "profilo.php")) ? 'active' : ''; ?>"
+                                class="nav-link dropdown-toggle <?php echo in_array($currentPage, array("miei-gruppi.php", "profilo.php")) ? 'active' : ''; ?>"
                                 href="#"
                                 role="button"
                                 data-bs-toggle="dropdown"
@@ -60,12 +61,12 @@ $currentPage = basename($_SERVER['PHP_SELF']);
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end">
                                 <li>
-                                    <a class="dropdown-item" href="#">
+                                    <a class="dropdown-item" href="profilo.php">
                                         Profilo
                                     </a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" href="/StudyGroups/public/mieigruppi.php">
+                                    <a class="dropdown-item" href="miei-gruppi.php">
                                         I miei gruppi
                                     </a>
                                 </li>
@@ -73,7 +74,7 @@ $currentPage = basename($_SERVER['PHP_SELF']);
                                     <hr class="dropdown-divider">
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" href="/StudyGroups/includes/api/process-logout.php">
+                                    <a class="dropdown-item" href="/StudyGroups/includes/actions/process-logout.php">
                                         Logout
                                     </a>
                                 </li>

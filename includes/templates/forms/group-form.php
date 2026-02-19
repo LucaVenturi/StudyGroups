@@ -9,7 +9,7 @@ $group = $templateParams["group"];
     <div class="mx-2 mx-md-5 p-3 p-md-5 border rounded border-primary bg-body">
         <form
             method="POST"
-            action="/StudyGroups/includes/api/group-actions/<?php
+            action="/StudyGroups/includes/actions/group-actions/<?php
                                                             switch ($action) {
                                                                 case 'edit':
                                                                     echo "edit.php";

@@ -7,7 +7,7 @@ $user = $templateParams["user"];
 
 <div class="mx-5 my-3 card border border-primary shadow p-3 bg-body text-dark">
 
-    <form method="POST" action="/StudyGroups/includes/api/edit-profile.php" enctype="multipart/form-data">
+    <form method="POST" action="/StudyGroups/includes/actions/edit-profile.php" enctype="multipart/form-data">
         <section class="row mb-3 align-items-center">
             <div class="col-12">
                 <h2>Foto profilo</h2>

@@ -64,11 +64,11 @@ switch ($action) {
 // Setto i parametri richiesti dalla pagina.
 $templateParams = array(
     "title" => $title,
-    "main_content" => "group-form.php",
+    "main_content" => __DIR__ . "/../includes/templates/forms/group-form.php",
     "action" => $action,
     "courses" => $dbHelper->getCourses(),
     "group" => $group,
     "js" => array('../assets/js/gestisci-gruppo.js')
 );
 
-require(__DIR__ . '/../includes/templates/base.php');
+require(__DIR__ . '/../includes/templates/components/base.php');
