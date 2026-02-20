@@ -504,4 +504,47 @@ class DatabaseHelper
 
         return (bool) $result->fetch_assoc()['course_exists'];
     }
+
+    public function createSubject($courseId, $name) {
+        $query = <<<SQL
+            INSERT INTO materie (id_cdl, nome)
+            VALUES (?, ?);
+        SQL;
+
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("is", $courseId, $name);
+        $stmt->execute();
+
+        return $stmt->affected_rows > 0;
+    }
+
+    public function deleteSubject($courseId, $name) {
+        $query = <<<SQL
+            DELETE FROM materie
+            WHERE id_cdl = ? AND nome = ?;
+        SQL;
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("is", $courseId, $name);
+        $stmt->execute();
+
+        return $stmt->affected_rows > 0;
+    }
+
+    public function doesSubjectExist($courseId, $name) {
+        $query = <<<SQL
+            SELECT EXISTS(
+                SELECT 1 
+                FROM materie
+                WHERE id_cdl = ? AND nome = ?
+            ) AS subject_exists;
+        SQL;
+
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("is", $courseId, $name);
+
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return (bool) $result->fetch_assoc()['subject_exists'];
+    }
 }
