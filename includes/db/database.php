@@ -447,4 +447,61 @@ class DatabaseHelper
 
         return $stmt->affected_rows > 0;
     }
+
+    public function insertCourse($name) {
+        $query = <<<SQL
+            INSERT INTO corsi_di_laurea(nome)
+            VALUES (?);
+        SQL;
+
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("s", $name);
+        $stmt->execute();
+
+        return $stmt->affected_rows > 0;
+    }
+
+    public function editCourse($courseId, $name) {
+        $query = <<<SQL
+            UPDATE corsi_di_laurea
+            SET nome = ?
+            WHERE id = ?;
+        SQL;
+
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("si", $name, $courseId);
+        $stmt->execute();
+
+        return $stmt->affected_rows > 0;
+    }
+
+    public function deleteCourse($courseId) {
+        $query = <<<SQL
+            DELETE FROM corsi_di_laurea
+            WHERE id = ?;
+        SQL;
+
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("i", $courseId);
+
+        $stmt->execute();
+
+        return $stmt->affected_rows > 0;
+    }
+
+    public function doesCourseExist($courseId) {
+        $query = <<<SQL
+            SELECT EXISTS(
+                SELECT 1 FROM corsi_di_laurea WHERE id = ?
+            ) AS course_exists;
+        SQL;
+
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("i", $courseId);
+
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return (bool) $result->fetch_assoc()['course_exists'];
+    }
 }
