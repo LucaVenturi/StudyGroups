@@ -51,7 +51,7 @@ $currentPage = basename($_SERVER['PHP_SELF']);
                         <?php if ($user['is_admin'] ?? false): ?>
                             <li class="nav-item dropdown">
                                 <a 
-                                    class="nav-link dropdown-toggle <?php echo in_array($currentPage, array("gestione-corsi.php")) ? 'active' : ''; ?>"
+                                    class="nav-link dropdown-toggle <?php echo in_array($currentPage, array("gestione-corsi.php", "gestione-materie.php")) ? 'active' : ''; ?>"
                                     href="#"
                                     role="button"
                                     data-bs-toggle="dropdown"
@@ -63,6 +63,11 @@ $currentPage = basename($_SERVER['PHP_SELF']);
                                     <li>
                                         <a class="dropdown-item" href="/StudyGroups/admin/gestione-corsi.php">
                                             Gestione corsi di laurea
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="/StudyGroups/admin/gestione-materie.php">
+                                            Gestione materie
                                         </a>
                                     </li>
                                 </ul>

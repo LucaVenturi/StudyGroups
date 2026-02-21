@@ -1,9 +1,6 @@
 <div class="container py-4">
-
-    <h1 class="mb-4">Gestione Materie</h1>
-
     <!-- Selezione corso -->
-    <div class="card mb-4">
+    <div class="card border-primary mb-4">
         <div class="card-header">Seleziona corso</div>
         <div class="card-body">
             <form method="GET">
@@ -20,11 +17,12 @@
         </div>
     </div>
 
+    <!-- Se un corso è stato selezionato allora mostra le materie del corso -->
     <?php if (!empty($_GET['course_id'])): ?>
         <?php $courseId = (int)$_GET['course_id']; ?>
 
         <!-- Aggiungi materia -->
-        <div class="card mb-4">
+        <div class="card border-primary mb-4">
             <div class="card-header">Aggiungi materia</div>
             <div class="card-body">
                 <form
@@ -54,7 +52,7 @@
         </div>
 
         <!-- Lista materie -->
-        <div class="card">
+        <div class="card border-primary">
             <div class="card-header">Materie del corso</div>
             <div class="card-body p-0">
                 <table class="table table-striped mb-0">

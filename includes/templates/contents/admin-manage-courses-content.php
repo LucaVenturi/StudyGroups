@@ -1,6 +1,5 @@
 <div class="container-fluid py-4">
-    <h1 class="mb-4">Gestione Corsi di Laurea</h1>
-
+    <!-- Messaggi di errore e successo -->
     <?php if ($templateParams['success']): ?>
         <div class="alert alert-success"><?= htmlspecialchars($templateParams['success']) ?></div>
     <?php endif; ?>
@@ -9,7 +8,7 @@
     <?php endif; ?>
 
     <!-- Form per aggiungere un corso -->
-    <div class="card mb-4">
+    <div class="card border-primary mb-4">
         <div class="card-header">Aggiungi nuovo corso</div>
         <div class="card-body">
             <form method="POST" action="/StudyGroups/includes/actions/course-actions/insert.php" class="row g-3">
@@ -24,7 +23,7 @@
     </div>
 
     <!-- Lista corsi esistenti -->
-    <div class="card">
+    <div class="card border-primary mb-4">
         <div class="card-header">Corsi esistenti</div>
         <div class="card-body p-0">
             <table class="table table-striped table-hover mb-0">
