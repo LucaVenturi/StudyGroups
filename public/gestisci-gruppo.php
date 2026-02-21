@@ -68,7 +68,10 @@ $templateParams = array(
     "action" => $action,
     "courses" => $dbHelper->getCourses(),
     "group" => $group,
-    "js" => array('../assets/js/gestisci-gruppo.js')
+    "js" => array(
+        '../assets/js/utils.js',
+        '../assets/js/trova-gruppi.js'
+    )
 );
 
 require(__DIR__ . '/../includes/templates/components/base.php');

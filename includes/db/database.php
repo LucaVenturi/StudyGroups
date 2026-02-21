@@ -45,7 +45,88 @@ class DatabaseHelper
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    function getGroupsCreatedBy($userId) {
+    public function getGroupsFiltered($courseId = null, $subject = null, $date = null, $showFull = false)
+    {
+        $query = <<<SQL
+            SELECT
+                g.id,
+                g.titolo,
+                g.descrizione,
+                g.data_esame,
+                COUNT(p.id_partecipante) AS num_partecipanti,
+                g.max_partecipanti,
+                cdl.nome AS corso_di_laurea,
+                m.nome AS materia,
+                u.nome AS nome_creatore,
+                u.cognome AS cognome_creatore,
+                u.foto_profilo as foto_profilo_creatore
+            FROM gruppi AS g
+            JOIN materie AS m 
+                ON g.nome_materia_studiata = m.nome 
+                AND g.id_cdl = m.id_cdl
+            JOIN corsi_di_laurea AS cdl 
+                ON m.id_cdl = cdl.id
+            JOIN utenti AS u 
+                ON g.id_creatore = u.id
+            LEFT JOIN partecipazioni AS p 
+                ON g.id = p.id_gruppo
+        SQL;
+
+        $conditions = [];   // Memorizza le eventuali condizioni da verificare nel WHERE
+        $params = [];       // Memorizza gli eventuali parametri da bindare
+        $types = "";        // Memorizza gli eventuali tipi dei parametri da bindare
+
+        // Se è stato passato un corso aggiunge un filtro su id_cdl
+        if ($courseId) {
+            $conditions[] = "g.id_cdl = ?";
+            $params[] = $courseId;
+            $types .= "i";
+        }
+
+        // Se è stata passata una materia aggiunge un filtro su nome_materia_studiata
+        if ($subject) {
+            $conditions[] = "g.nome_materia_studiata = ?";
+            $params[] = $subject;
+            $types .= "s";
+        }
+
+        // Se è stata passata una data aggiunge un filtro su data_esame
+        if ($date) {
+            $conditions[] = "g.data_esame <= ?";
+            $params[] = $date;
+            $types .= "s";
+        }
+
+        // Se c'erano delle condizioni le aggiunge in fondo alla query.
+        if (!empty($conditions)) {
+            $query .= " WHERE " . implode(" AND ", $conditions);
+        }
+
+        // Aggiunge il GROUP BY che deve essere dopo il WHERE.
+        $query .= " GROUP BY g.id";
+
+        // Se vuole vedere solo i gruppi con posti disponibili.
+        if ($showFull) {
+            $query .= " HAVING COUNT(p.id_partecipante) < g.max_partecipanti";
+        }
+
+        $stmt = $this->db->prepare($query);
+        if (!$stmt) {
+            error_log("Errore nella preparazione della query: " . $this->db->error);
+            return [];
+        }
+
+        if (!empty($params)) {
+            $stmt->bind_param($types, ...$params);
+        }
+
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    function getGroupsCreatedBy($userId)
+    {
         $query = <<<SQL
             SELECT
                 g.id,
@@ -404,7 +485,8 @@ class DatabaseHelper
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function getCreatedGroupsCount($userId) {
+    public function getCreatedGroupsCount($userId)
+    {
         $query = <<<SQL
             SELECT COUNT(*) AS count
             FROM gruppi
@@ -419,13 +501,14 @@ class DatabaseHelper
         return (int)$result->fetch_assoc()['count'];
     }
 
-    public function getJoinedGroupsCount($userId) {
+    public function getJoinedGroupsCount($userId)
+    {
         $query = <<<SQL
             SELECT COUNT(*) AS count
             FROM partecipazioni
             WHERE id_partecipante = ?;
         SQL;
-        
+
         $stmt = $this->db->prepare($query);
         $stmt->bind_param("i", $userId);
         $stmt->execute();
@@ -434,7 +517,8 @@ class DatabaseHelper
         return (int)$result->fetch_assoc()['count'];
     }
 
-    public function updateUser($userId, $nome, $cognome, $email, $fotoProfilo, $telegram, $corso) {
+    public function updateUser($userId, $nome, $cognome, $email, $fotoProfilo, $telegram, $corso)
+    {
         $query = <<<SQL
             UPDATE utenti
             SET nome = ?, cognome = ?, email = ?, foto_profilo = ?, telegram = ?, id_cdl = ?
@@ -448,7 +532,8 @@ class DatabaseHelper
         return $stmt->affected_rows > 0;
     }
 
-    public function insertCourse($name) {
+    public function insertCourse($name)
+    {
         $query = <<<SQL
             INSERT INTO corsi_di_laurea(nome)
             VALUES (?);
@@ -461,7 +546,8 @@ class DatabaseHelper
         return $stmt->affected_rows > 0;
     }
 
-    public function editCourse($courseId, $name) {
+    public function editCourse($courseId, $name)
+    {
         $query = <<<SQL
             UPDATE corsi_di_laurea
             SET nome = ?
@@ -475,7 +561,8 @@ class DatabaseHelper
         return $stmt->affected_rows > 0;
     }
 
-    public function deleteCourse($courseId) {
+    public function deleteCourse($courseId)
+    {
         $query = <<<SQL
             DELETE FROM corsi_di_laurea
             WHERE id = ?;
@@ -489,7 +576,8 @@ class DatabaseHelper
         return $stmt->affected_rows > 0;
     }
 
-    public function doesCourseExist($courseId) {
+    public function doesCourseExist($courseId)
+    {
         $query = <<<SQL
             SELECT EXISTS(
                 SELECT 1 FROM corsi_di_laurea WHERE id = ?
@@ -505,7 +593,8 @@ class DatabaseHelper
         return (bool) $result->fetch_assoc()['course_exists'];
     }
 
-    public function createSubject($courseId, $name) {
+    public function createSubject($courseId, $name)
+    {
         $query = <<<SQL
             INSERT INTO materie (id_cdl, nome)
             VALUES (?, ?);
@@ -518,7 +607,8 @@ class DatabaseHelper
         return $stmt->affected_rows > 0;
     }
 
-    public function deleteSubject($courseId, $name) {
+    public function deleteSubject($courseId, $name)
+    {
         $query = <<<SQL
             DELETE FROM materie
             WHERE id_cdl = ? AND nome = ?;
@@ -530,7 +620,8 @@ class DatabaseHelper
         return $stmt->affected_rows > 0;
     }
 
-    public function doesSubjectExist($courseId, $name) {
+    public function doesSubjectExist($courseId, $name)
+    {
         $query = <<<SQL
             SELECT EXISTS(
                 SELECT 1 

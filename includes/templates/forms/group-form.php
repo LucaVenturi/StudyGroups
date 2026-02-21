@@ -10,18 +10,18 @@ $group = $templateParams["group"];
         <form
             method="POST"
             action="/StudyGroups/includes/actions/group-actions/<?php
-                                                            switch ($action) {
-                                                                case 'edit':
-                                                                    echo "edit.php";
-                                                                    break;
-                                                                case 'insert':
-                                                                    echo "insert.php";
-                                                                    break;
-                                                                default:
-                                                                    echo '#';
-                                                                    break;
-                                                            }
-                                                            ?>">
+                switch ($action) {
+                    case 'edit':
+                        echo "edit.php";
+                        break;
+                    case 'insert':
+                        echo "insert.php";
+                        break;
+                    default:
+                        echo '#';
+                        break;
+                }
+            ?>">
             <?php if ($action == 'edit') : ?>
                 <input type="hidden" name="group_id" value="<?= htmlspecialchars($group["id"]) ?>" />
             <?php endif; ?>

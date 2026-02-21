@@ -13,6 +13,60 @@
             </button>
         </div>
 
+        <!-- FILTRI / COLLAPSE RESPONSIVE -->
+        <aside class="col-lg-3">
+
+            <!-- Collapse unico -->
+            <div id="filtriCollapse" class="collapse d-lg-block">
+                <div class="card border-primary shadow-sm">
+                    <div class="card-header fw-bold d-lg-none">Filtri</div>
+                    <div class="card-body">
+
+                        <!-- UNICO FORM -->
+                        <form method="GET" action="trova-gruppi.php">
+
+                            <!-- Selezione corso di laurea -->
+                            <div class="mb-3">
+                                <label for="courseSelect" class="form-label">Corso di laurea</label>
+                                <select id="courseSelect" name="course_id" class="form-select">
+                                    <option selected value="">Seleziona corso</option>
+                                    <?php foreach ($templateParams["courses"] as $course) : ?>
+                                        <option value="<?= $course["id"] ?>"><?= htmlspecialchars($course["nome"]) ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+
+                            <!-- Selezione materia -->
+                            <div class="mb-3">
+                                <label for="subjectSelect" class="form-label">Corso di laurea</label>
+                                <select id="subjectSelect" name="subject" class="form-select" disabled  >
+                                    <option selected value="">Seleziona materia</option>
+                                </select>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="dateInput" class="form-label">Data esame entro</label>
+                                <input type="date" id="dateInput" name="date" class="form-control" />
+                            </div>
+
+                            <div class="form-check mb-3">
+                                <input class="form-check-input" type="checkbox" id="showFullCheckbox" name="show_full" />
+                                <label class="form-check-label" for="showFullCheckbox">
+                                    Solo gruppi con posti liberi
+                                </label>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary w-100">
+                                Applica filtri
+                            </button>
+
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </aside>
+
         <!-- ANNUNCI -->
         <section class="col-lg-9">
 
@@ -31,54 +85,5 @@
             <?php endif; ?>
 
         </section>
-
-        <!-- FILTRI / COLLAPSE RESPONSIVE -->
-        <aside class="col-lg-3">
-
-            <!-- Collapse unico -->
-            <div id="filtriCollapse" class="collapse d-lg-block">
-                <div class="card border-primary shadow-sm">
-                    <div class="card-header fw-bold d-lg-none">Filtri</div>
-                    <div class="card-body">
-
-                        <!-- UNICO FORM -->
-                        <form>
-
-                            <div class="mb-3">
-                                <label for="materia" class="form-label">Materia</label>
-                                <input type="text" id="materia" class="form-control" placeholder="Es. Analisi 1">
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="corso" class="form-label">Corso di laurea</label>
-                                <select id="corso" class="form-select">
-                                    <option selected>Tutti</option>
-                                    <option>Informatica</option>
-                                    <option>Ingegneria</option>
-                                </select>
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="data" class="form-label">Data esame entro</label>
-                                <input type="date" id="data" class="form-control">
-                            </div>
-
-                            <div class="form-check mb-3">
-                                <input class="form-check-input" type="checkbox" id="posti">
-                                <label class="form-check-label" for="posti">
-                                    Solo gruppi con posti liberi
-                                </label>
-                            </div>
-
-                            <button type="submit" class="btn btn-primary w-100">
-                                Applica filtri
-                            </button>
-
-                        </form>
-
-                    </div>
-                </div>
-            </div>
-        </aside>
     </div>
 </div>
