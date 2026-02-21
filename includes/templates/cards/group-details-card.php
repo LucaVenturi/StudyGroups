@@ -40,12 +40,31 @@ $context = $context ?? 'list';
             <p class="mb-0 small text-muted">Sei il creatore dell'annuncio</p>
         <?php else: ?>
             <div class="d-flex align-items-center gap-2">
-                <img src="<?= htmlspecialchars($group['foto_profilo_creatore'] ?? '../assets/img/default-profile.jpg') ?>"
-                    alt="Foto profilo"
-                    width="40" height="40"
-                    class="rounded-circle object-fit-cover border">
+                <?php
+                $foto = $group['foto_profilo_creatore'] ?? '';
+                $nome = $group['nome_creatore'] ?? '';
+                $cognome = $group['cognome_creatore'] ?? '';
+
+                if (!empty($foto)) : ?>
+                    <img src="<?= htmlspecialchars($foto) ?>"
+                        alt="Foto profilo"
+                        width="40" height="40"
+                        class="rounded-circle object-fit-cover border">
+                <?php else :
+                    // Calcola le iniziali (prima lettera di nome e cognome)
+                    $iniziali = strtoupper(substr($nome, 0, 1) . substr($cognome, 0, 1));
+                    if (empty(trim($iniziali))) {
+                        $iniziali = '?'; // Se entrambi vuoti
+                    }
+                ?>
+                    <div class="bg-secondary text-white rounded-circle d-flex align-items-center justify-content-center fw-bold border"
+                        style="width: 40px; height: 40px;">
+                        <?= $iniziali ?>
+                    </div>
+                <?php endif; ?>
+
                 <span class="fw-semibold small">
-                    <?= htmlspecialchars($group['nome_creatore'] ?? '') ?> <?= htmlspecialchars($group['cognome_creatore'] ?? '') ?>
+                    <?= htmlspecialchars($nome) ?> <?= htmlspecialchars($cognome) ?>
                 </span>
             </div>
         <?php endif; ?>

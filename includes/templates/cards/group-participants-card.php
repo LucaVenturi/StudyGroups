@@ -20,16 +20,24 @@ if (isUserLoggedIn()) {
     <div class="card-body p-2">
         <!-- CREATORE DEL GRUPPO -->
         <div class="d-flex align-items-start mb-3">
-            <img
-                src="../assets/img/<?php echo $creator["foto_profilo"] ?>"
-                alt=""
-                width="50"
-                height="50"
-                class="rounded-circle object-fit-cover me-2" />
+            <?php if (!empty($creator["foto_profilo"])): ?>
+                <img src="../assets/img/<?php echo htmlspecialchars($creator["foto_profilo"]) ?>"
+                     alt="Foto profilo"
+                     width="50" height="50"
+                     class="rounded-circle object-fit-cover me-2">
+            <?php else:
+                $inizialiCreatore = strtoupper(substr($creator["nome"] ?? '', 0, 1) . substr($creator["cognome"] ?? '', 0, 1));
+                if (empty(trim($inizialiCreatore))) $inizialiCreatore = '?';
+            ?>
+                <div class="bg-secondary text-white rounded-circle d-flex align-items-center justify-content-center fw-bold me-2 border"
+                     style="width: 50px; height: 50px;">
+                    <?php echo $inizialiCreatore; ?>
+                </div>
+            <?php endif; ?>
             <div>
-                <div class="fw-semibold"><?php echo $creator["nome"] ?></div>
-                <div class="small text-muted">Email: <?php echo $creator["email"] ?></div>
-                <div class="small text-muted">Telegram: @<?php echo $creator["telegram"] ?></div>
+                <div class="fw-semibold"><?php echo htmlspecialchars($creator["nome"] ?? '') . ' ' . htmlspecialchars($creator["cognome"] ?? '') ?></div>
+                <div class="small text-muted">Email: <?php echo htmlspecialchars($creator["email"] ?? '') ?></div>
+                <div class="small text-muted">Telegram: @<?php echo htmlspecialchars($creator["telegram"] ?? '') ?></div>
             </div>
         </div>
 
@@ -39,16 +47,24 @@ if (isUserLoggedIn()) {
         <?php if (isUserLoggedIn() && ($isUserParticipant || $isUserCreator)): ?>
             <?php foreach ($participants as $participant): ?>
                 <div class="d-flex align-items-start mb-3">
-                    <img
-                        src="../assets/img/<?php echo $participant["foto_profilo"] ?>"
-                        alt=""
-                        width="50"
-                        height="50"
-                        class="rounded-circle object-fit-cover me-2" />
+                    <?php if (!empty($participant["foto_profilo"])): ?>
+                        <img src="../assets/img/<?php echo htmlspecialchars($participant["foto_profilo"]) ?>"
+                             alt="Foto profilo"
+                             width="50" height="50"
+                             class="rounded-circle object-fit-cover me-2">
+                    <?php else:
+                        $inizialiPart = strtoupper(substr($participant["nome"] ?? '', 0, 1) . substr($participant["cognome"] ?? '', 0, 1));
+                        if (empty(trim($inizialiPart))) $inizialiPart = '?';
+                    ?>
+                        <div class="bg-secondary text-white rounded-circle d-flex align-items-center justify-content-center fw-bold me-2 border"
+                             style="width: 50px; height: 50px;">
+                            <?php echo $inizialiPart; ?>
+                        </div>
+                    <?php endif; ?>
                     <div>
-                        <div class="fw-semibold"><?php echo $participant["nome"] ?></div>
-                        <div class="small text-muted">Email: <?php echo $participant["email"] ?></div>
-                        <div class="small text-muted">Telegram: @<?php echo $participant["telegram"] ?></div>
+                        <div class="fw-semibold"><?php echo htmlspecialchars($participant["nome"] ?? '') . ' ' . htmlspecialchars($participant["cognome"] ?? '') ?></div>
+                        <div class="small text-muted">Email: <?php echo htmlspecialchars($participant["email"] ?? '') ?></div>
+                        <div class="small text-muted">Telegram: @<?php echo htmlspecialchars($participant["telegram"] ?? '') ?></div>
                     </div>
                 </div>
             <?php endforeach; ?>
@@ -71,7 +87,7 @@ if (isUserLoggedIn()) {
                 <form
                     action="/StudyGroups/includes/actions/group-actions/leave.php"
                     method="POST">
-                    <input type="hidden" name="group_id" value="<?php echo $groupId ?>">
+                    <input type="hidden" name="group_id" value="<?php echo $groupId ?>" />
                     <button type="submit" class="btn btn-danger w-100">
                         Abbandona il gruppo
                     </button>
@@ -82,7 +98,7 @@ if (isUserLoggedIn()) {
                 <form
                     action="/StudyGroups/includes/actions/group-actions/join.php"
                     method="POST">
-                    <input type="hidden" name="group_id" value="<?php echo $groupId ?>">
+                    <input type="hidden" name="group_id" value="<?php echo $groupId ?>" />
                     <button type="submit" class="btn btn-primary w-100">
                         Unisciti al gruppo
                     </button>
