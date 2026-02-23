@@ -54,7 +54,15 @@ switch ($action) {
         $title = "Crea gruppo";
 
         // Creo un gruppo vuoto.
-        $group = array("titolo" => "", "descrizione" => "", "data_esame" => "", "max_partecipanti" => "", "id_cdl" => "", "corso_di_laurea" => "", "materia" => "");
+        $group = array(
+            "titolo" => "", 
+            "descrizione" => "", 
+            "data_esame" => "", 
+            "max_partecipanti" => "", 
+            "id_cdl" => "", 
+            "corso_di_laurea" => "", 
+            "materia" => ""
+        );
         break;
     default:
         http_response_code(400);

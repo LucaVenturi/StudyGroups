@@ -1,5 +1,5 @@
 // Funzione per caricare le materie
-function loadSubjectsIntoSelect(courseId, subjectSelect, selectedSubject = null) {
+function loadSubjectsIntoSelect(courseId, subjectSelect, selectedSubject = null, isSubjectRequired = true) {
     // Resetta la select delle materie
     subjectSelect.innerHTML = '<option value="" disabled>Caricamento...</option>';
     subjectSelect.disabled = true;
@@ -20,7 +20,7 @@ function loadSubjectsIntoSelect(courseId, subjectSelect, selectedSubject = null)
         })
         .then(data => {
             // Pulisce la select
-            subjectSelect.innerHTML = '<option value="" disabled>Seleziona una materia</option>';
+            subjectSelect.innerHTML = '<option value="" ' + (isSubjectRequired ? 'disabled' : '') + ' selected>Seleziona una materia</option>';
 
             // Popola con le materie ricevute
             data.forEach(subject => {

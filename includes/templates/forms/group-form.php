@@ -47,7 +47,7 @@ $group = $templateParams["group"];
             </div>
 
             <div class="form-floating mb-3">
-                <select id="course_id" class="form-select" name="course_id" required>
+                <select id="courseSelect" class="form-select" name="course_id" required>
                     <option value="" disabled selected>Seleziona un corso di laurea</option>
                     <?php foreach ($templateParams["courses"] as $course): ?>
                         <option value="<?= htmlspecialchars($course["id"]) ?>" <?php echo $course["id"] == $group["id_cdl"] ? 'selected' : '' ?>>
@@ -59,7 +59,7 @@ $group = $templateParams["group"];
             </div>
 
             <div class="form-floating mb-3">
-                <select id="subject" class="form-select" name="subject" disabled required>
+                <select id="subjectSelect" class="form-select" name="subject" disabled required>
                     <?php if (!empty($group["materia"])) : ?>
                         <option value="<?php echo $group["materia"] ?>">
                             <?= htmlspecialchars($group["materia"]) ?>
