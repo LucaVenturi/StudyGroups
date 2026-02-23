@@ -10,6 +10,7 @@ if (!$isUserCreator) {
 
 // Cancella il gruppo.
 $success = $dbHelper->deleteGroup($groupId);
+
 if ($success) {
     header("Location: /StudyGroups/public/miei-gruppi.php");
     exit;

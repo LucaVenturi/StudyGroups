@@ -1,29 +1,17 @@
 <?php
 
-// Inizializzazione
-require_once(__DIR__ . "/_subject_actions_bootstrap.php");
+require_once(__DIR__ . '/../../init.php');
 
-// Se non sono stati passati il nome della materia
-// e l'id del corso a cui appartiene 
-// manda una risposta d'errore.
-if (
-    !isset($_POST["name"]) || 
-    !isset($_POST["course_id"]
-)
-) {
-    var_dump($_POST);
-    exit;
-    //http_response_code(400);
-    //exit;
-}
+$user = requireAdmin();
 
-// Memorizzo i parametri.
-$name = trim($_POST['name']);
-$courseId = (int) $_POST['course_id'];
+requirePostMethod();
+
+$name = requirePostParam('name');
+$courseId = requirePostParam('course_id');
 
 // Controllo se la materia esiste
 if (!$dbHelper->doesSubjectExist($courseId, $name)) {
-    $_SESSION['admin_error'] = 'La materia non esiste.';
+    $_SESSION['admin_error'] = 'La materia ' . $name . ' del corso con id ' . $courseId . ' non esiste.';
     header('Location: /StudyGroups/admin/gestione-materie.php?course_id=' . $courseId);
     exit;
 }

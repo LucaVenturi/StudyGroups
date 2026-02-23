@@ -2,33 +2,23 @@
 
 require_once("../includes/init.php");
 
-// L'utente deve essere loggato.
-if (!isUserLoggedIn()) {
-    header("Location: ../public/login.php");
-    exit();
-}
+$user = requireAdmin();
 
-$user = getLoggedUser();
-
-// L'utente deve essere admin.
-if (!isset($user["is_admin"]) || !$user["is_admin"]) {
-    http_response_code(401);
-    exit();
-}
-
+$title = 'Gestione Materie';
 $courses = $dbHelper->getCourses();
+$mainContent = __DIR__ . '/../includes/templates/contents/admin-manage-subjects-content.php';
 
-// Gestione messaggi flash
-$success_message = $_SESSION['admin_success'] ?? null;
-$error_message = $_SESSION['admin_error'] ?? null;
+// Gestione messaggi dalla sessione.
+$successMessage = $_SESSION['admin_success'] ?? null;
+$errorMessage = $_SESSION['admin_error'] ?? null;
 unset($_SESSION['admin_success'], $_SESSION['admin_error']);
 
 $templateParams = [
     'title' => 'Gestione Materie',
-    'main_content' => __DIR__ . '/../includes/templates/contents/admin-manage-subjects-content.php',
+    'main_content' => $mainContent,
     'courses' => $courses,
-    'success' => $success_message,
-    'error' => $error_message
+    'success' => $successMessage,
+    'error' => $errorMessage
 ];
 
 require(__DIR__ . '/../includes/templates/components/base.php');

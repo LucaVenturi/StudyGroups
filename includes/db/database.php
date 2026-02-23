@@ -323,7 +323,7 @@ class DatabaseHelper
         return $result->fetch_assoc();
     }
 
-    function getGroupPartecipants($groupId)
+    function getGroupParticipants($groupId)
     {
         $query = <<<SQL
             SELECT 

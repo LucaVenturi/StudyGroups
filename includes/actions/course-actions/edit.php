@@ -1,20 +1,13 @@
 <?php
 
-// Inizializzazione
-require_once(__DIR__ . "/_course_actions_bootstrap.php");
+require_once(__DIR__ . '/../../init.php');
 
-// Se non sono stati passati i parametri necessari manda risposta di errore.
-if (
-    !isset($_POST["name"]) ||
-    !isset($_POST["course_id"])
-) {
-    http_response_code(400);
-    exit;
-}
+$user = requireAdmin();
 
-// Memorizzo i parametri.
-$name = trim($_POST['name']);
-$courseId = (int) $_POST['course_id'];
+requirePostMethod();
+
+$name =  requirePostParam('name');
+$courseId = (int) requirePostParam('course_id');
 
 // Validazione parametri.
 if (empty($name)) {

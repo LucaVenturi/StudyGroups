@@ -1,18 +1,13 @@
 <?php
 
-// Inizializzazione
-require_once(__DIR__ . "/_course_actions_bootstrap.php");
+require_once(__DIR__ . '/../../init.php');
 
-// Se non sono stati passati i parametri necessari manda risposta di errore.
-if (!isset($_POST["course_id"]) || empty($_POST["course_id"])) {
-    http_response_code(400);
-    exit;
-}
+requirePostMethod();
 
-// Memorizzo i parametri.
-$courseId = (int) $_POST['course_id'];
+$user = requireAdmin();
+$courseId = (int) requirePostParam('course_id');
 
-// Validazione parametri.
+// Verifica che il gruppo esista.
 if (!$dbHelper->doesCourseExist($courseId)) {
     $_SESSION['admin_error'] = 'Corso con ID ' . $courseId . ' non trovato.';
     header('Location: /StudyGroups/admin/gestione-corsi.php');
@@ -22,11 +17,10 @@ if (!$dbHelper->doesCourseExist($courseId)) {
 // Provo a cancellare il corso.
 $success = $dbHelper->deleteCourse($courseId);
 
-if ($success) {
+if ($success)
     $_SESSION['admin_success'] = 'Corso eliminato con successo.';
-} else {
+else
     $_SESSION['admin_error'] = 'Errore durante l\'eliminazione del corso.';
-}
 
 header('Location: /StudyGroups/admin/gestione-corsi.php');
 exit;

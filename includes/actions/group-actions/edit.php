@@ -8,29 +8,24 @@ if (!$isUserCreator) {
     exit;
 }
 
-// Se non sono stati passati tutti i parametri necessari manda risposta di errore.
-if (
-    !isset($_POST["group_id"]) ||
-    !isset($_POST["title"]) ||
-    !isset($_POST["description"]) ||
-    !isset($_POST["exam_date"]) ||
-    !isset($_POST["max_participants"]) ||
-    !isset($_POST["course_id"]) ||
-    !isset($_POST["subject"])
-) {
-    http_response_code(400);
-    exit;
-}
+$groupId = (int) requirePostParam("group_id");
+$title = requirePostParam("title");
+$description = requirePostParam("description");
+$exam_date = requirePostParam("exam_date");
+$maxParticipants = requirePostParam("max_participants");
+$courseId = (int) requirePostParam("course_id");
+$subjectName = requirePostParam("subject");
+
 
 // Aggiorna il gruppo.
 $success = $dbHelper->editGroup(
-    $_POST["group_id"], 
-    $_POST["title"], 
-    $_POST["description"], 
-    $_POST["exam_date"], 
-    $_POST["max_participants"], 
-    $_POST["course_id"], 
-    $_POST["subject"], 
+    $groupId, 
+    $title, 
+    $description, 
+    $exam_date, 
+    $maxParticipants, 
+    $courseId, 
+    $subjectName, 
     $groupId
 );
 

@@ -2,12 +2,7 @@
 
 require_once(__DIR__ . '/../includes/init.php');
 
-if(!isUserLoggedIn()) {
-    header("Location: login.php");
-    exit();
-}
-
-$user = getLoggedUser();
+$user = requireLogin();
 
 $templateParams = array(
     "title" => "I miei gruppi",

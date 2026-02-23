@@ -2,37 +2,19 @@
 
 require_once(__DIR__ . '/../includes/init.php');
 
-// Se l'utente non è loggato rimanda al login.
-if (!isUserLoggedIn()) {
-    header("Location: /StudyGroups/public/login.php");
-    exit();
-}
-
 // Recupera l'utente loggato.
-$user = getLoggedUser();
-
-// Se non è stata passata un'azione la richiesta è mal formata.
-if (!isset($_GET['action'])) {
-    http_response_code(400);
-    exit;
-}
+$user = requireLogin();
 
 // Memorizzo l'azione richiesta.
-$action = $_GET['action'];
+$action = requireGetParam('action');
 
 switch ($action) {
     case 'edit':
         // Setto il titolo della pagina.
         $title = "Modifica gruppo";
 
-        // Se non è stato passato l'id del gruppo manda risposta di errore.
-        if (!isset($_GET['group_id'])) {
-            http_response_code(400);
-            exit;
-        }
-
         // Memorizza l'id del gruppo.
-        $groupId = $_GET['group_id'];
+        $groupId = requireGetParam('group_id');
 
         // Verifica se il gruppo esiste.
         if (!$dbHelper->doesGroupExist($groupId)) {

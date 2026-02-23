@@ -2,12 +2,22 @@
 
 require_once(__DIR__ . '/../includes/init.php');
 
-// Leggi filtri
-$courseId = isset($_GET['course_id']) && !empty($_GET['course_id']) ? (int)$_GET['course_id'] : null;
-$subject  = isset($_GET['subject']) && !empty($_GET['subject']) ? $_GET['subject'] : null;
-$date     = isset($_GET['date']) && !empty($_GET['date']) ? $_GET['date'] : null;
-$showFull = isset($_GET['show_full']) ? true : false;
+// Leggi filtri, se non sono settati verranno tutti impostati a null e ignorati dalla funzione getGroupsFiltered
+$courseId = isset($_GET['course_id']) && !empty($_GET['course_id'])
+    ? (int)$_GET['course_id']
+    : null;
 
+$subject  = isset($_GET['subject']) && !empty($_GET['subject'])
+    ? $_GET['subject']
+    : null;
+
+$date = isset($_GET['date']) && !empty($_GET['date'])
+    ? $_GET['date']
+    : null;
+
+$showFull = isset($_GET['show_full'])
+    ? true
+    : false;
 
 $templateParams = array(
     "title" => "Trova gruppi",

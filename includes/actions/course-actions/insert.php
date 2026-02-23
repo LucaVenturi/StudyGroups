@@ -1,7 +1,6 @@
 <?php
 
-// Inizializzazione
-require_once(__DIR__ . "/_course_actions_bootstrap.php");
+require_once(__DIR__ . '/../../init.php');
 
 // Se non è stato passato il nome del corso manda risposta d'errore.
 if (!isset($_POST["name"]) || empty($_POST["name"])) {

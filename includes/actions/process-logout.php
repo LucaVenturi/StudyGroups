@@ -4,10 +4,7 @@
 require_once(__DIR__ . '/../init.php');
 
 // Se non è loggato, redirect alla home.
-if (!isUserLoggedIn()) {
-    header("Location: /StudyGroups/public/index.php");
-    exit;
-}
+requireLogin();
 
 // Esegue il logout dell'utente e redirige alla home.
 logoutUser();

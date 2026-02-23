@@ -1,11 +1,9 @@
 <?php
 
-
 /**
  * Funzione per verificare se l'utente è loggato
  */
-function isUserLoggedIn()
-{
+function isUserLoggedIn() {
     return isset($_SESSION['logged_user']);
 }
 
@@ -51,7 +49,7 @@ function logoutUser() {
 /**
  * Memorizza l'immagine.
  */
-function uploadImage($path, $image){
+function uploadImage($path, $image) {
     $imageName = basename($image["name"]);
     $fullPath = $path.$imageName;
     
@@ -99,4 +97,60 @@ function uploadImage($path, $image){
         }
     }
     return array($result, $msg);
+}
+
+/**
+ * Funzione che restituisce l'utente loggato solo se è loggato, altrimenti reindirizza alla pagina di login.
+ */
+function requireLogin(string $redirectTo = "/StudyGroups/public/login.php"): array {
+    if (!isUserLoggedIn()) {
+        header("Location: $redirectTo");
+        exit;
+    }
+    return getLoggedUser();
+}
+
+/**
+ * Funzione che restituisce l'utente loggato solo se è loggato e se è un admin.
+ * Se non è loggato reindirizza al login e se non è admin manda risposta d'errore.
+ */
+function requireAdmin(string $redirectTo = "/StudyGroups/public/login.php"): array {
+    $user = requireLogin($redirectTo);
+    if (!($user["is_admin"] ?? false)) {
+        http_response_code(403);
+        exit;
+    }
+    return $user;
+}
+
+/**
+ * Manda risposta d'errore se non è una richiesta POST.
+ */
+function requirePostMethod(): void {
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+        http_response_code(405);
+        exit;
+    }
+}
+
+/**
+ * Verifica se è stato passato in POST il parametro col nome specificato
+ */
+function requirePostParam(string $param): mixed {
+    if (!isset($_POST[$param])) {
+        http_response_code(400);
+        exit;
+    }
+    return $_POST[$param];
+}
+
+/**
+ * Verifica se è stato passato in GET il parametro col nome specificato.
+ */
+function requireGetParam(string $param): mixed {
+    if (!isset($_GET[$param])) {
+        http_response_code(400);
+        exit;
+    }
+    return $_GET[$param];
 }

@@ -2,37 +2,28 @@
 
 require_once(__DIR__ . '/../init.php');
 
-if (!isUserLoggedIn()) {
-    header('Location: login.php');
-    exit;
-}
 
-$user = getLoggedUser();
+$user = requireLogin();
 
-if ($_SERVER["REQUEST_METHOD"] !== "POST") {
-    http_response_code(405);
-    exit;
-}
+requirePostMethod();
 
-if (
-    !isset($_POST["name"]) ||
-    !isset($_POST["surname"]) ||
-    !isset($_POST["email"])
-) {
-    http_response_code(400);
-    exit;
-}
+// Parametri obbligatori.
+$nome = requirePostParam("name");
+$cognome = requirePostParam("surname");
+$email = requirePostParam("email");
 
-$userId = $user["id"];
-$nome = trim($_POST["name"]);
-$cognome = trim($_POST["surname"]);
-$email = trim($_POST["email"]);
-$telegram = empty($_POST["telegram"]) ? null : trim($_POST["telegram"]);
-$corso = empty($_POST["course"]) ? null : trim($_POST["course"]);
+// Parametri opzionali.
+$telegram = empty($_POST["telegram"]) 
+    ? null 
+    : trim($_POST["telegram"]);
 
+$corso = empty($_POST["course"]) 
+    ? null 
+    : trim($_POST["course"]);
 
 $fotoProfilo = $user["foto_profilo"]; // default: mantieni quella attuale
 
+// Se c'è una foto profilo valida tra i file, la memorizza in locale e sovrascrive $fotoProfilo.
 if (isset($_FILES["foto_profilo"]) && strlen($_FILES["foto_profilo"]["name"]) > 0) {
     [$result, $msg] = uploadImage(UPLOAD_DIR, $_FILES["foto_profilo"]);
     if (!$result) {
@@ -42,7 +33,6 @@ if (isset($_FILES["foto_profilo"]) && strlen($_FILES["foto_profilo"]["name"]) > 
     }
     $fotoProfilo = $msg;
 }
-
 
 $success = $dbHelper->updateUser($userId, $nome, $cognome, $email, $fotoProfilo, $telegram, $corso);
 
