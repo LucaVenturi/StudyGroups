@@ -54,17 +54,6 @@
                         <?php echo $templateParams["login_error"]; ?>
                     </div>
                 <?php endif; ?>
-                
-                <!-- Ricordami + Password dimenticata (opzionale) -->
-                <!-- <div class="mb-3 d-flex justify-content-between align-items-center">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="rememberMe">
-                        <label class="form-check-label" for="rememberMe">
-                            Ricordami
-                        </label>
-                    </div>
-                    <a href="#" class="text-decoration-none small">Password dimenticata?</a>
-                </div> -->
 
                 <!-- Bottone Submit -->
                 <div class="d-grid mb-3">

@@ -13,11 +13,14 @@ $maxParticipants = (int) requirePostParam("max_participants");
 $courseId = (int) requirePostParam("course_id");
 $subjectName = requirePostParam("subject");
 
+$dt = DateTime::createFromFormat("Y-m-d", $examDate);
+$today = new DateTime('today');
+
 // Validazione input.
 if (
     empty($title) ||
     empty($description) ||
-    !DateTime::createFromFormat("Y-m-d", $examDate) ||
+    !$dt || $dt < $today  ||
     $maxParticipants <= 0 ||
     $courseId <= 0 ||
     empty($subjectName)
@@ -38,7 +41,7 @@ $success = $dbHelper->insertGroup(
 );
 
 if ($success) {
-    header("Location: /StudyGroups/public/miei-gruppi.php");
+    header("Location: /StudyGroups/public/miei-gruppi.php?tab=created");
     exit;
 } else {
     http_response_code(500);

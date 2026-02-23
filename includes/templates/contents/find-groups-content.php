@@ -70,6 +70,8 @@
         <!-- ANNUNCI -->
         <section class="col-lg-9">
 
+            <h2 class="visually-hidden">Gruppi di studio</h2>
+
             <?php if (empty($templateParams["groups"])) : ?>
                 <!-- Nessun gruppo trovato -->
                 <div class="alert alert-info text-center" role="alert">

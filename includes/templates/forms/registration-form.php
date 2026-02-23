@@ -28,7 +28,8 @@
                     name="name"
                     placeholder="Mario"
                     required
-                    autocomplete="given-name" />
+                    autocomplete="given-name" 
+                />
             </div>
 
             <!-- Cognome -->
@@ -43,7 +44,8 @@
                     name="surname"
                     placeholder="Rossi"
                     required
-                    autocomplete="family-name" />
+                    autocomplete="family-name" 
+                />
             </div>
 
             <!-- Email -->
@@ -58,7 +60,8 @@
                     name="email"
                     placeholder="nome.cognome@studio.unibo.it" 
                     required 
-                    autocomplete="email" />
+                    autocomplete="email" 
+                />
             </div>
 
             <!-- Password -->
@@ -75,7 +78,8 @@
                     minlength="8" 
                     required
                     autocomplete="new-password" 
-                    aria-describedby="passwordHelp" />
+                    aria-describedby="passwordHelp" 
+                />
                 <div id="passwordHelp" class="form-text">
                     Minimo 8 caratteri. Usa lettere, numeri e simboli.
                 </div>
@@ -94,7 +98,8 @@
                     placeholder="Ripeti la password" 
                     minlength="8" 
                     required 
-                    autocomplete="new-password" />
+                    autocomplete="new-password" 
+                />
             </div>
 
             <!-- Divider -->

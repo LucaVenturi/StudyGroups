@@ -21,10 +21,12 @@ if (isUserLoggedIn()) {
         <!-- CREATORE DEL GRUPPO -->
         <div class="d-flex align-items-start mb-3">
             <?php if (!empty($creator["foto_profilo"])): ?>
-                <img src="../assets/img/<?php echo htmlspecialchars($creator["foto_profilo"]) ?>"
-                     alt="Foto profilo"
-                     width="50" height="50"
-                     class="rounded-circle object-fit-cover me-2">
+                <img 
+                    src="../assets/img/<?php echo htmlspecialchars($creator["foto_profilo"]) ?>"
+                    alt="Foto profilo"
+                    width="50" height="50"
+                    class="rounded-circle object-fit-cover me-2" 
+                />
             <?php else:
                 $inizialiCreatore = strtoupper(substr($creator["nome"] ?? '', 0, 1) . substr($creator["cognome"] ?? '', 0, 1));
                 if (empty(trim($inizialiCreatore))) $inizialiCreatore = '?';
@@ -48,10 +50,12 @@ if (isUserLoggedIn()) {
             <?php foreach ($participants as $participant): ?>
                 <div class="d-flex align-items-start mb-3">
                     <?php if (!empty($participant["foto_profilo"])): ?>
-                        <img src="../assets/img/<?php echo htmlspecialchars($participant["foto_profilo"]) ?>"
-                             alt="Foto profilo"
-                             width="50" height="50"
-                             class="rounded-circle object-fit-cover me-2">
+                        <img 
+                            src="../assets/img/<?php echo htmlspecialchars($participant["foto_profilo"]) ?>"
+                            alt="Foto profilo"
+                            width="50" height="50"
+                            class="rounded-circle object-fit-cover me-2"
+                        />
                     <?php else:
                         $inizialiPart = strtoupper(substr($participant["nome"] ?? '', 0, 1) . substr($participant["cognome"] ?? '', 0, 1));
                         if (empty(trim($inizialiPart))) $inizialiPart = '?';

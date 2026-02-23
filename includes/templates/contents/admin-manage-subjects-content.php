@@ -30,7 +30,7 @@
                     action="/StudyGroups/includes/actions/subject-actions/create.php"
                     class="row g-3"
                 >
-                    <input type="hidden" name="course_id" value="<?= $courseId ?>">
+                    <input type="hidden" name="course_id" value="<?= $courseId ?>" />
 
                     <div class="col-md-9">
                         <input
@@ -39,7 +39,7 @@
                             class="form-control"
                             placeholder="Nome materia"
                             required
-                        >
+                        />
                     </div>
 
                     <div class="col-md-3">
@@ -73,8 +73,8 @@
                                         class="d-inline"
                                         onsubmit="return confirm('Eliminare questa materia?')"
                                     >
-                                        <input type="hidden" name="course_id" value="<?= $courseId ?>">
-                                        <input type="hidden" name="name" value="<?= htmlspecialchars($s['nome']) ?>">
+                                        <input type="hidden" name="course_id" value="<?= $courseId ?>" />
+                                        <input type="hidden" name="name" value="<?= htmlspecialchars($s['nome']) ?>" />
                                         <button type="submit" class="btn btn-sm btn-outline-danger">
                                             Elimina
                                         </button>

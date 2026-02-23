@@ -12,7 +12,7 @@ if (!$isUserCreator) {
 $success = $dbHelper->deleteGroup($groupId);
 
 if ($success) {
-    header("Location: /StudyGroups/public/miei-gruppi.php");
+    header("Location: /StudyGroups/public/miei-gruppi.php?tab=created");
     exit;
 } else {
     http_response_code(500);

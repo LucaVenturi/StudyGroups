@@ -97,7 +97,7 @@ $currentPage = basename($_SERVER['PHP_SELF']);
                                     </a>
                                 </li>
                                 <li>
-                                    <hr class="dropdown-divider">
+                                    <hr class="dropdown-divider" />
                                 </li>
                                 <li>
                                     <a class="dropdown-item" href="/StudyGroups/includes/actions/process-logout.php">

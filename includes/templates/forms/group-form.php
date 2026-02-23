@@ -33,11 +33,11 @@ $group = $templateParams["group"];
 
             <div class="form-floating mb-3">
                 <textarea id="description" class="form-control" name="description" placeholder="Descrizione" style="height: 100px;" required><?= $group["descrizione"] ?></textarea>
-                <label for="description" class="form-label" required>Descrizione</label>
+                <label for="description" class="form-label">Descrizione</label>
             </div>
 
             <div class="form-floating mb-3">
-                <input type="date" class="form-control" id="exam_date" name="exam_date" value="<?= htmlspecialchars($group["data_esame"]) ?>" placeholder="data esame" />
+                <input type="date" class="form-control" id="exam_date" name="exam_date" value="<?= htmlspecialchars($group["data_esame"]) ?>" />
                 <label for="exam_date" class="form-label">Data esame</label>
             </div>
 
@@ -48,27 +48,26 @@ $group = $templateParams["group"];
 
             <div class="form-floating mb-3">
                 <select id="courseSelect" class="form-select" name="course_id" required>
-                    <option value="" disabled selected>Seleziona un corso di laurea</option>
+                    <option value="" disabled <?= empty($group["id_cdl"]) ? 'selected' : '' ?> >Seleziona un corso di laurea</option>
                     <?php foreach ($templateParams["courses"] as $course): ?>
-                        <option value="<?= htmlspecialchars($course["id"]) ?>" <?php echo $course["id"] == $group["id_cdl"] ? 'selected' : '' ?>>
+                        <option value="<?= htmlspecialchars($course["id"]) ?>" <?php echo $course["id"] == $group["id_cdl"] ? 'selected' : '' ?> >
                             <?= htmlspecialchars($course["nome"]) ?>
                         </option>
                     <?php endforeach; ?>
                 </select>
-                <label for="course_id" class="form-label">Corso di laurea</label>
+                <label for="courseSelect" class="form-label">Corso di laurea</label>
             </div>
 
             <div class="form-floating mb-3">
                 <select id="subjectSelect" class="form-select" name="subject" disabled required>
+                    <option value="" disabled <?= empty($group["materia"]) ? 'selected' : '' ?>>Seleziona una materia</option>
                     <?php if (!empty($group["materia"])) : ?>
-                        <option value="<?php echo $group["materia"] ?>">
+                        <option value="<?= htmlspecialchars($group["materia"]) ?>" selected>
                             <?= htmlspecialchars($group["materia"]) ?>
                         </option>
-                    <?php else: ?>
-                        <option value="" selected disabled>Seleziona una materia</option>
                     <?php endif; ?>
                 </select>
-                <label for="subject" class="form-label">Materia</label>
+                <label for="subjectSelect" class="form-label">Materia</label>
             </div>
 
             <div class="mb-3 text-center">

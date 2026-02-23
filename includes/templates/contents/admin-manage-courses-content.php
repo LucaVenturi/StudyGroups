@@ -13,7 +13,7 @@
         <div class="card-body">
             <form method="POST" action="/StudyGroups/includes/actions/course-actions/insert.php" class="row g-3">
                 <div class="col-md-8">
-                    <input type="text" name="name" class="form-control" placeholder="Nome corso (es. Informatica)" required>
+                    <input type="text" name="name" class="form-control" placeholder="Nome corso (es. Informatica)" required />
                 </div>
                 <div class="col-md-4">
                     <button type="submit" class="btn btn-primary w-100">Aggiungi</button>
@@ -53,7 +53,7 @@
                             <td class="text-end">
                                 <button class="btn btn-sm btn-outline-primary" onclick="enableEdit(<?= $course['id'] ?>)">Modifica</button>
                                 <form method="POST" action="/StudyGroups/includes/actions/course-actions/delete.php" class="d-inline" onsubmit="return confirm('Eliminare il corso? Verranno eliminate anche le materie associate.')">
-                                    <input type="hidden" name="course_id" value="<?= $course['id'] ?>">
+                                    <input type="hidden" name="course_id" value="<?= $course['id'] ?>" />
                                     <button type="submit" class="btn btn-sm btn-outline-danger">Elimina</button>
                                 </form>
                             </td>

@@ -46,10 +46,12 @@ $context = $context ?? 'list';
                 $cognome = $group['cognome_creatore'] ?? '';
 
                 if (!empty($foto)) : ?>
-                    <img src="<?= htmlspecialchars($foto) ?>"
+                    <img 
+                        src="<?= htmlspecialchars($foto) ?>"
                         alt="Foto profilo"
                         width="40" height="40"
-                        class="rounded-circle object-fit-cover border">
+                        class="rounded-circle object-fit-cover border"
+                    />
                 <?php else :
                     // Calcola le iniziali (prima lettera di nome e cognome)
                     $iniziali = strtoupper(substr($nome, 0, 1) . substr($cognome, 0, 1));

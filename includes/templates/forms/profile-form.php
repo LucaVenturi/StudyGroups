@@ -125,7 +125,8 @@ $user = $templateParams["user"];
                             id="telegramInput" 
                             name="telegram" 
                             placeholder="Telegram"
-                            value="<?= htmlspecialchars($user["telegram"] ?? '') ?>">
+                            value="<?= htmlspecialchars($user["telegram"] ?? '') ?>"
+                        />
                         <label for="telegramInput">Telegram</label>
                     </div>
                 </div>
@@ -158,7 +159,7 @@ $user = $templateParams["user"];
         </footer>
     </form>
 
-    <hr>
+    <hr />
 
     <!-- Sezione statistiche -->
     <section class="row g-3">

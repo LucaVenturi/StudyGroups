@@ -20,7 +20,7 @@ function loadSubjectsIntoSelect(courseId, subjectSelect, selectedSubject = null,
         })
         .then(data => {
             // Pulisce la select
-            subjectSelect.innerHTML = '<option value="" ' + (isSubjectRequired ? 'disabled' : '') + ' selected>Seleziona una materia</option>';
+            subjectSelect.innerHTML = '<option value="" ' + (isSubjectRequired ? 'disabled' : '') + ' ' + (selectedSubject ? '' : 'selected') + ' >Seleziona una materia</option>';
 
             // Popola con le materie ricevute
             data.forEach(subject => {
