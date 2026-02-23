@@ -6,8 +6,14 @@ $user = requireAdmin();
 
 requirePostMethod();
 
-$name = requirePostParam('name');
-$courseId = requirePostParam('course_id');
+$name = trim(requirePostParam('name'));
+$courseId = (int) requirePostParam('course_id');
+
+// Validazione input.
+if (empty($name) || $courseId <= 0) {
+    http_response_code(400);
+    exit;
+}
 
 // Provo ad inserire il nuovo corso.
 $success = $dbHelper->createSubject($courseId, $name);

@@ -14,7 +14,7 @@ switch ($action) {
         $title = "Modifica gruppo";
 
         // Memorizza l'id del gruppo.
-        $groupId = requireGetParam('group_id');
+        $groupId = (int) requireGetParam('group_id');
 
         // Verifica se il gruppo esiste.
         if (!$dbHelper->doesGroupExist($groupId)) {

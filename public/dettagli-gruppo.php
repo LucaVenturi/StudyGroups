@@ -4,8 +4,8 @@ require_once(__DIR__ . '/../includes/init.php');
 
 $groupId = (int) requireGetParam('id');
 
-if (!$dbHelper->doesGroupExist($groupId)) {
-    http_response_code(404);
+if ($groupId <= 0 || !$dbHelper->doesGroupExist($groupId)) {
+    http_response_code(400);
     exit;
 }
 

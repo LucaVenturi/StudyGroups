@@ -6,12 +6,25 @@ requirePostMethod();
 
 $user = requireLogin();
 
-$title = requirePostParam("title");
-$description = requirePostParam("description");
+$title = trim(requirePostParam("title"));
+$description = trim(requirePostParam("description"));
 $examDate = requirePostParam("exam_date");
-$maxParticipants = requirePostParam("max_participants");
+$maxParticipants = (int) requirePostParam("max_participants");
 $courseId = (int) requirePostParam("course_id");
 $subjectName = requirePostParam("subject");
+
+// Validazione input.
+if (
+    empty($title) ||
+    empty($description) ||
+    !DateTime::createFromFormat("Y-m-d", $examDate) ||
+    $maxParticipants <= 0 ||
+    $courseId <= 0 ||
+    empty($subjectName)
+) {
+    http_response_code(400);
+    exit;
+}
 
 // Prova ad inserire il gruppo nel database.
 $success = $dbHelper->insertGroup(

@@ -363,6 +363,23 @@ class DatabaseHelper
         return (bool)$result->fetch_assoc()['group_exists'];
     }
 
+    public function isGroupFull($groupId) {
+        $query = <<<SQL
+            SELECT (COUNT(p.id_partecipante) + 1) <= g.max_partecipanti AS is_full
+            FROM gruppi g
+            JOIN partecipazioni p
+                ON g.id = p.id_gruppo
+            WHERE g.id = ?;
+        SQL;
+
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("i", $groupId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return (bool) $result['is_full'];
+    }
+
     function isUserGroupCreator($userId, $groupId)
     {
         $query = <<<SQL

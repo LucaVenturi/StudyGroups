@@ -7,7 +7,7 @@ requirePostMethod();
 $user = requireLogin();
 $groupId = (int) requirePostParam("group_id");
 
-if (!$dbHelper->doesGroupExist($groupId)) {
+if ($groupId <= 0 || !$dbHelper->doesGroupExist($groupId)) {
     http_response_code(404);
     exit;
 }

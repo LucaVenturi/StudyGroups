@@ -3,7 +3,7 @@
 // Richiede il file di inizializzazione che include anche il database helper.
 require_once(__DIR__ . '/../init.php');
 
-// Se non è loggato, redirect alla home.
+// Se non è loggato, redirect al login?
 requireLogin();
 
 // Esegue il logout dell'utente e redirige alla home.
