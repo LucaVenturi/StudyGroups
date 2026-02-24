@@ -53,7 +53,7 @@
                                 </form>
                             </td>
                             <td class="text-end">
-                                <button class="btn btn-sm btn-outline-primary" onclick="enableEdit(<?= $course['id'] ?>)">Modifica</button>
+                                <button class="btn btn-sm btn-outline-primary" >Modifica</button>
                                 <form method="POST" action="/StudyGroups/includes/actions/course-actions/delete.php" class="d-inline" onsubmit="return confirm('Eliminare il corso? Verranno eliminate anche le materie associate.')">
                                     <input type="hidden" name="course_id" value="<?= $course['id'] ?>" />
                                     <button type="submit" class="btn btn-sm btn-outline-danger">Elimina</button>
