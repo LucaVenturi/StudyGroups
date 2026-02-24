@@ -24,42 +24,44 @@
 
                         <!-- UNICO FORM -->
                         <form method="GET" action="trova-gruppi.php">
+                            <ul class="list-unstyled">
+                                <!-- Selezione corso di laurea -->
+                                <li class="mb-3">
+                                    <label for="courseSelect" class="form-label">Corso di laurea</label>
+                                    <select id="courseSelect" name="course_id" class="form-select">
+                                        <option selected value="">Seleziona corso</option>
+                                        <?php foreach ($templateParams["courses"] as $course) : ?>
+                                            <option value="<?= $course["id"] ?>"><?= htmlspecialchars($course["nome"]) ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </li>
 
-                            <!-- Selezione corso di laurea -->
-                            <div class="mb-3">
-                                <label for="courseSelect" class="form-label">Corso di laurea</label>
-                                <select id="courseSelect" name="course_id" class="form-select">
-                                    <option selected value="">Seleziona corso</option>
-                                    <?php foreach ($templateParams["courses"] as $course) : ?>
-                                        <option value="<?= $course["id"] ?>"><?= htmlspecialchars($course["nome"]) ?></option>
-                                    <?php endforeach; ?>
-                                </select>
-                            </div>
+                                <!-- Selezione materia -->
+                                <li class="mb-3">
+                                    <label for="subjectSelect" class="form-label">Corso di laurea</label>
+                                    <select id="subjectSelect" name="subject" class="form-select" disabled>
+                                        <option selected value="">Seleziona materia</option>
+                                    </select>
+                                </li>
 
-                            <!-- Selezione materia -->
-                            <div class="mb-3">
-                                <label for="subjectSelect" class="form-label">Corso di laurea</label>
-                                <select id="subjectSelect" name="subject" class="form-select" disabled  >
-                                    <option selected value="">Seleziona materia</option>
-                                </select>
-                            </div>
+                                <li class="mb-3">
+                                    <label for="dateInput" class="form-label">Data esame entro</label>
+                                    <input type="date" id="dateInput" name="date" class="form-control" />
+                                </li>
 
-                            <div class="mb-3">
-                                <label for="dateInput" class="form-label">Data esame entro</label>
-                                <input type="date" id="dateInput" name="date" class="form-control" />
-                            </div>
+                                <li class="form-check mb-3">
+                                    <input class="form-check-input" type="checkbox" id="showFullCheckbox" name="show_full" />
+                                    <label class="form-check-label" for="showFullCheckbox">
+                                        Solo gruppi con posti liberi
+                                    </label>
+                                </li>
 
-                            <div class="form-check mb-3">
-                                <input class="form-check-input" type="checkbox" id="showFullCheckbox" name="show_full" />
-                                <label class="form-check-label" for="showFullCheckbox">
-                                    Solo gruppi con posti liberi
-                                </label>
-                            </div>
-
-                            <button type="submit" class="btn btn-primary w-100">
-                                Applica filtri
-                            </button>
-
+                                <li>
+                                    <button type="submit" class="btn btn-primary w-100">
+                                        Applica filtri
+                                    </button>
+                                </li>
+                            </ul>
                         </form>
 
                     </div>
@@ -70,7 +72,7 @@
         <!-- ANNUNCI -->
         <section class="col-lg-9">
 
-            <h2 class="visually-hidden">Gruppi di studio</h2>
+            <h1 class="visually-hidden">Gruppi di studio</h1>
 
             <?php if (empty($templateParams["groups"])) : ?>
                 <!-- Nessun gruppo trovato -->
@@ -78,12 +80,16 @@
                     Nessun gruppo trovato. Prova ad ampliare i filtri di ricerca.
                 </div>
             <?php else : ?>
-                <?php foreach ($templateParams["groups"] as $group) : ?>
-                    <?php
-                        $context = "list";
-                        include __DIR__ . "/../cards/group-details-card.php";
-                    ?>
-                <?php endforeach; ?>
+                <ul>
+                    <?php foreach ($templateParams["groups"] as $group) : ?>
+                        <li class="list-unstyled">
+                            <?php
+                            $context = "list";
+                            include __DIR__ . "/../cards/group-details-card.php";
+                            ?>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
             <?php endif; ?>
 
         </section>

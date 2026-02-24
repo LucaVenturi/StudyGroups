@@ -1,4 +1,6 @@
 <div class="container py-4">
+    <h1 class="visually-hidden">Gestione materie</h1>
+
     <!-- Selezione corso -->
     <div class="card border-primary mb-4">
         <div class="card-header">Seleziona corso</div>

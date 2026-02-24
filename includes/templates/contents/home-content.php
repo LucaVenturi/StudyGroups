@@ -27,9 +27,9 @@ $displayName = $user ? htmlspecialchars(trim($user['nome'] . ' ' . $user['cognom
 <?php if (!$isLoggedIn): ?>
     <section class="container-fluid p-5 bg-body">
         <h2 class="text-center fw-bold mb-5">Come funziona</h2>
-        <div class="row g-4 justify-content-center">
-            <article class="col-lg-4 col-md-6">
-                <div class="card h-100 text-center shadow-sm">
+        <ol class="row g-4 justify-content-center list-unstyled">
+            <li class="col-lg-4 col-md-6">
+                <article class="card h-100 text-center shadow-sm">
                     <div class="card-body">
                         <div class="bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
                             <span class="fs-4 fw-bold">1</span>
@@ -37,10 +37,10 @@ $displayName = $user ? htmlspecialchars(trim($user['nome'] . ' ' . $user['cognom
                         <h3 class="card-title fw-bold">Registrati</h3>
                         <p class="card-text">Crea un account gratuito per accedere a tutte le funzionalità del sito</p>
                     </div>
-                </div>
-            </article>
-            <article class="col-lg-4 col-md-6">
-                <div class="card h-100 text-center shadow-sm">
+                </article>
+            </li>
+            <li class="col-lg-4 col-md-6">
+                <article class="card h-100 text-center shadow-sm">
                     <div class="card-body">
                         <div class="bg-secondary text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
                             <span class="fs-4 fw-bold">2</span>
@@ -48,10 +48,10 @@ $displayName = $user ? htmlspecialchars(trim($user['nome'] . ' ' . $user['cognom
                         <h3 class="card-title fw-bold">Trova un gruppo</h3>
                         <p class="card-text">Unisciti a un gruppo che studia la materia a cui sei interessato o crea il tuo gruppo</p>
                     </div>
-                </div>
-            </article>
-            <article class="col-lg-4 col-md-6">
-                <div class="card h-100 text-center shadow-sm">
+                </article>
+            </li>
+            <li class="col-lg-4 col-md-6">
+                <article class="card h-100 text-center shadow-sm">
                     <div class="card-body">
                         <div class="bg-success text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
                             <span class="fs-4 fw-bold">3</span>
@@ -59,9 +59,9 @@ $displayName = $user ? htmlspecialchars(trim($user['nome'] . ' ' . $user['cognom
                         <h3 class="card-title fw-bold">Studia insieme</h3>
                         <p class="card-text">Organizzati con i membri del gruppo per studiare insieme! Studiare in compagnia è più efficace!</p>
                     </div>
-                </div>
-            </article>
-        </div>
+                </article>
+            </li>
+        </ol>
     </section>
 <?php endif; ?>
 

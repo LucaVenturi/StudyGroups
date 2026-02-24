@@ -48,7 +48,7 @@ $context = $context ?? 'list';
                 if (!empty($foto)) : ?>
                     <img 
                         src="<?= htmlspecialchars($foto) ?>"
-                        alt="Foto profilo"
+                        alt=""
                         width="40" height="40"
                         class="rounded-circle object-fit-cover border"
                     />

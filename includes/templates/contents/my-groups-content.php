@@ -4,6 +4,8 @@ $gruppiCreati = $templateParams["groups_created"] ?? [];
 ?>
 
 <div class="container py-4">
+    <h1 class="visually-hidden">I miei gruppi</h1>
+    
     <div class="card border-primary shadow-sm">
         <div class="card-header">
             <ul class="nav nav-tabs card-header-tabs nav-fill" id="miei-gruppiTab" role="tablist">

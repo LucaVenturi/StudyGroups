@@ -1,10 +1,12 @@
 <div class="container-fluid py-4">
+    <h1 class="visually-hidden">Gestione corsi</h1>
+
     <!-- Messaggi di errore e successo -->
     <?php if ($templateParams['success']): ?>
-        <div class="alert alert-success"><?= htmlspecialchars($templateParams['success']) ?></div>
+        <div class="alert alert-success" role="alert"><?= htmlspecialchars($templateParams['success']) ?></div>
     <?php endif; ?>
     <?php if ($templateParams['error']): ?>
-        <div class="alert alert-danger"><?= htmlspecialchars($templateParams['error']) ?></div>
+        <div class="alert alert-danger" role="alert"><?= htmlspecialchars($templateParams['error']) ?></div>
     <?php endif; ?>
 
     <!-- Form per aggiungere un corso -->

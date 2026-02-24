@@ -6,6 +6,7 @@ $group = $templateParams["group"];
 ?>
 
 <div class="container-fluid p-3 p-md-5">
+    <h1 class="visually-hidden"><?= $action == 'edit' ? 'Modifica' : 'Crea' ?> nuovo gruppo.</h1>
     <div class="mx-2 mx-md-5 p-3 p-md-5 border rounded border-primary bg-body">
         <form
             method="POST"

@@ -23,7 +23,7 @@ if (isUserLoggedIn()) {
             <?php if (!empty($creator["foto_profilo"])): ?>
                 <img 
                     src="../assets/img/<?php echo htmlspecialchars($creator["foto_profilo"]) ?>"
-                    alt="Foto profilo"
+                    alt=""
                     width="50" height="50"
                     class="rounded-circle object-fit-cover me-2" 
                 />
@@ -52,7 +52,7 @@ if (isUserLoggedIn()) {
                     <?php if (!empty($participant["foto_profilo"])): ?>
                         <img 
                             src="../assets/img/<?php echo htmlspecialchars($participant["foto_profilo"]) ?>"
-                            alt="Foto profilo"
+                            alt=""
                             width="50" height="50"
                             class="rounded-circle object-fit-cover me-2"
                         />

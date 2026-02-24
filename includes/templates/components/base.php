@@ -19,9 +19,11 @@ $page_title = "StudyGroups - " . ($templateParams["title"] ?? "Home");
 
 <body class="d-flex flex-column min-vh-100 bg-body-secondary text-dark">
 
+    <a href="#main-content" class="visually-hidden-focusable">Salta al contenuto principale</a>
+
     <?php require 'header.php'; ?>
 
-    <main class="flex-grow-1">
+    <main id="main-content" class="flex-grow-1">
         <?php
         if (isset($templateParams["main_content"])) {
             require $templateParams["main_content"];

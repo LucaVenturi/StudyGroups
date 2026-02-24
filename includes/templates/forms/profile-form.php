@@ -7,6 +7,8 @@ $user = $templateParams["user"];
 
 <div class="mx-5 my-3 card border border-primary shadow p-3 bg-body text-dark">
 
+    <h1 class="visually-hidden"><?= $editMode ? 'Modifica' : 'Visualizza' ?> profilo</h1>
+
     <form method="POST" action="/StudyGroups/includes/actions/edit-profile.php" enctype="multipart/form-data">
         <section class="row mb-3 align-items-center">
             <div class="col-12">
@@ -19,7 +21,7 @@ $user = $templateParams["user"];
                     width="80"
                     height="80"
                     class="rounded-circle object-fit-cover border"
-                    alt="Foto profilo"
+                    alt=""
                 />
             </div>
 
