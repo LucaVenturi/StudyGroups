@@ -15,6 +15,7 @@ $page_title = "StudyGroups - " . ($templateParams["title"] ?? "Home");
 
     <!-- Tema Bootstrap personalizzato -->
     <link href="../assets/css/custom.css" rel="stylesheet" />
+     
 </head>
 
 <body class="d-flex flex-column min-vh-100 bg-body-secondary text-dark">

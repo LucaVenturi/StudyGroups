@@ -18,7 +18,10 @@ $templateParams = [
     'main_content' => $mainContent,
     'courses' => $courses,
     'success' => $successMessage,
-    'error' => $errorMessage
+    'error' => $errorMessage,
+    'js' => array(
+        '../assets/js/gestione-materie.js'
+    )
 ];
 
 require(__DIR__ . '/../includes/templates/components/base.php');

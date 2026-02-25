@@ -15,7 +15,9 @@ if (isUserLoggedIn()) {
 
 <div class="card border-secondary mb-3 shadow-sm">
     <div class="card-header fw-bold">
-        Partecipanti
+        <h2 class="fw-bold card-title h4 mb-0">
+            Partecipanti
+        </h2>
     </div>
     <div class="card-body p-2">
         <!-- CREATORE DEL GRUPPO -->

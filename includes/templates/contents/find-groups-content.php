@@ -14,12 +14,16 @@
         </div>
 
         <!-- FILTRI / COLLAPSE RESPONSIVE -->
-        <aside class="col-lg-3">
+        <aside class="col-lg-3 mb-3">
 
             <!-- Collapse unico -->
             <div id="filtriCollapse" class="collapse d-lg-block">
                 <div class="card border-primary shadow-sm">
-                    <div class="card-header fw-bold d-lg-none">Filtri</div>
+                    <div class="card-header">
+                        <h2 class="card-title fw-bold mb-0 h4">
+                            Filtri
+                        </h2>    
+                    </div>
                     <div class="card-body">
 
                         <!-- UNICO FORM -->
@@ -38,7 +42,7 @@
 
                                 <!-- Selezione materia -->
                                 <li class="mb-3">
-                                    <label for="subjectSelect" class="form-label">Corso di laurea</label>
+                                    <label for="subjectSelect" class="form-label">Materia</label>
                                     <select id="subjectSelect" name="subject" class="form-select" disabled>
                                         <option selected value="">Seleziona materia</option>
                                     </select>
@@ -80,9 +84,9 @@
                     Nessun gruppo trovato. Prova ad ampliare i filtri di ricerca.
                 </div>
             <?php else : ?>
-                <ul>
+                <ul class="list-unstyled">
                     <?php foreach ($templateParams["groups"] as $group) : ?>
-                        <li class="list-unstyled">
+                        <li>
                             <?php
                             $context = "list";
                             include __DIR__ . "/../cards/group-details-card.php";

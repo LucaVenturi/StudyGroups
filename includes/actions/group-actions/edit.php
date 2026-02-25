@@ -17,13 +17,14 @@ $courseId = (int) requirePostParam("course_id");
 $subjectName = requirePostParam("subject");
 
 $today = new DateTime('today');
+$dt = DateTime::createFromFormat("Y-m-d", $exam_date);
 
 // Validazione input:
 if (
     $groupId <= 0 ||
     empty($title) ||
     empty($description) ||
-    !DateTime::createFromFormat("Y-m-d", $exam_date) || $date < $today ||
+    !DateTime::createFromFormat("Y-m-d", $exam_date) || $dt < $today ||
     $maxParticipants <= 0 ||
     $courseId <= 0 ||
     empty($subjectName)
@@ -40,8 +41,7 @@ $success = $dbHelper->editGroup(
     $exam_date, 
     $maxParticipants, 
     $courseId, 
-    $subjectName, 
-    $groupId
+    $subjectName
 );
 
 if ($success) {

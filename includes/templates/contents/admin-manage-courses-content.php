@@ -11,14 +11,17 @@
 
     <!-- Form per aggiungere un corso -->
     <div class="card border-primary mb-4">
-        <div class="card-header">Aggiungi nuovo corso</div>
+        <div class="card-header">
+            <h2 class="card-title fw-bold mb-0 h4">
+                Aggiungi nuovo corso
+            </h2>    
+        </div>
         <div class="card-body">
-            <form method="POST" action="/StudyGroups/includes/actions/course-actions/insert.php" class="row g-3">
-                <div class="col-md-8">
-                    <input type="text" name="name" class="form-control" placeholder="Nome corso (es. Informatica)" required />
-                </div>
-                <div class="col-md-4">
-                    <button type="submit" class="btn btn-primary w-100">Aggiungi</button>
+            <form method="POST" action="/StudyGroups/includes/actions/course-actions/insert.php">
+                <label for="nameInsert" class="form-label">Nome corso</label>
+                <div class="input-group">
+                    <input type="text" name="name" id="nameInsert" class="form-control" placeholder="es. Informatica" required />
+                    <button type="submit" class="btn btn-primary">Aggiungi</button>
                 </div>
             </form>
         </div>
@@ -26,7 +29,11 @@
 
     <!-- Lista corsi esistenti -->
     <div class="card border-primary mb-4">
-        <div class="card-header">Corsi esistenti</div>
+        <div class="card-header">
+            <h2 class="card-title fw-bold mb-0 h4">
+                Corsi esistenti
+            </h2>    
+        </div>
         <div class="card-body p-0">
             <table class="table table-striped table-hover mb-0">
                 <thead class="table-light">
@@ -46,7 +53,8 @@
                                 <form method="POST" action="/StudyGroups/includes/actions/course-actions/edit.php" class="d-none" id="edit-form-<?= $course['id'] ?>">
                                     <div class="input-group">
                                         <input type="hidden" name="course_id" value="<?= $course['id'] ?>" />
-                                        <input type="text" name="name" value="<?= htmlspecialchars($course['nome']) ?>" class="form-control form-control-sm" required />
+                                        <label for="nameEdit<?= $course['id'] ?>" class="visually-hidden">Nome corso</label>
+                                        <input type="text" name="name" id="nameEdit<?= $course['id'] ?>" value="<?= htmlspecialchars($course['nome']) ?>" class="form-control form-control-sm" required />
                                         <button type="submit" class="btn btn-sm btn-success">Salva</button>
                                         <button type="button" class="btn btn-sm btn-secondary" onclick="cancelEdit(<?= $course['id'] ?>)">Annulla</button>
                                     </div>
@@ -68,12 +76,13 @@
 </div>
 
 <script>
-function enableEdit(id) {
-    document.getElementById('course-name-' + id).classList.add('d-none');
-    document.getElementById('edit-form-' + id).classList.remove('d-none');
-}
-function cancelEdit(id) {
-    document.getElementById('course-name-' + id).classList.remove('d-none');
-    document.getElementById('edit-form-' + id).classList.add('d-none');
-}
+    function enableEdit(id) {
+        document.getElementById('course-name-' + id).classList.add('d-none');
+        document.getElementById('edit-form-' + id).classList.remove('d-none');
+    }
+
+    function cancelEdit(id) {
+        document.getElementById('course-name-' + id).classList.remove('d-none');
+        document.getElementById('edit-form-' + id).classList.add('d-none');
+    }
 </script>
