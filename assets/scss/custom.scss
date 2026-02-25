@@ -1,29 +1,27 @@
 $white: #ffffff;
 
+$primary: #a82e1b;
+$secondary: #513a78;
+
+// Modifiche ai colori per la paginazione
+$pagination-border-color: $primary;
+$pagination-hover-border-color: $primary;
+$pagination-active-border-color: $primary;
+$pagination-disabled-border-color:  $primary;
+
+// Modifiche ai colori per il navbar
+$navbar-dark-color: rgba($white, 0.8);
+
 $theme-colors: (
     "light":      #f5f1d5,
     "dark":       #421b46,
-    "primary":    #d83c24,
+    "primary":    #a82e1b,
     "secondary":  #513a78,
     "info":       #1b8f98,
-    "success":    #579b0d,
+    "success":    #147e1d,
     "warning":    #ffbc5b,
-    "danger":     #ed0663,
+    "danger":     #b5004b,
 );
 
 // Importa Bootstrap
 @import "bootstrap/bootstrap";
-
-
-// $white: #ffffff;
-
-// $theme-colors: (
-//     "light":      #f5decd,
-//     "dark":       #00072e,
-//     "primary":    #e01039,
-//     "secondary":  #085a6e,
-//     "info":       #0b8776,
-//     "success":    #599b05,
-//     "warning":    #ffbc5e,
-//     "danger":     #ed0264,
-// );

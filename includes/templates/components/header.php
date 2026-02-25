@@ -6,7 +6,7 @@ $currentPage = basename($_SERVER['PHP_SELF']);
 ?>
 
 <header>
-    <nav class="navbar navbar-expand-lg bg-primary navbar-dark">
+    <nav class="navbar navbar-expand-lg bg-primary text-white" data-bs-theme="dark">
         <div class="container-fluid">
             <!-- Titolo della pagina come brand -->
             <span class="navbar-brand fw-bold">

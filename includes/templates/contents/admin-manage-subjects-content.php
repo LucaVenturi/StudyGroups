@@ -74,7 +74,7 @@
                                 <th scope="col" class="text-end">Azioni</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody class="align-middle">
                             <?php foreach ($dbHelper->getSubjectsByCourse($courseId) as $s): ?>
                                 <tr>
                                     <td><?= htmlspecialchars($s['nome']) ?></td>
@@ -88,7 +88,7 @@
                                             <input type="hidden" name="name" value="<?= htmlspecialchars($s['nome']) ?>" />
                                             <button
                                                 type="submit"
-                                                class="btn btn-sm btn-outline-danger"
+                                                class="btn btn-sm btn-danger text-light"
                                                 aria-label="Elimina la materia <?= htmlspecialchars($s['nome']) ?>">
                                                 Elimina
                                             </button>

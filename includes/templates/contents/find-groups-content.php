@@ -96,6 +96,71 @@
                 </ul>
             <?php endif; ?>
 
+            <!-- PAGINAZIONE -->
+            <?php 
+                $currentPage = $templateParams["currentPage"];
+                $totalPages = $templateParams["totalPages"];
+                $window = $templateParams["window"];
+                $start = max(1, $currentPage - $window);
+                $end = min($totalPages, $currentPage + $window);
+            ?>
+            <nav aria-label="Paginazione gruppi" class="pagination-border">
+                <ul class="pagination justify-content-end">
+
+                    <!-- Previous -->
+                    <?php if ($currentPage > 1) : ?>
+                        <li class="page-item">
+                            <a class="page-link"
+                            href="?<?= http_build_query(array_merge($_GET, ['page' => $currentPage - 1])) ?>">
+                                Precedente
+                            </a>
+                        </li>
+                    <?php endif; ?>
+
+                    <!-- Link alla prima pagina se non è inclusa nella paginazione -->
+                    <?php if ($start > 1) : ?>
+                        <li class="page-item <?= $i === $currentPage ? 'active' : '' ?>">
+                            <a class="page-link"
+                                href="?<?= http_build_query(array_merge($_GET, ['page' => 1])) ?>"
+                            >
+                                1
+                            </a>
+                        </li>
+                    <?php endif; ?>
+
+                    <!-- Link alla pagina corrente e alle $window pagine precedenti e successive -->
+                    <?php for ($i = $start; $i <= $end; $i++): ?>
+                        <li class="page-item <?= $i === $templateParams["currentPage"] ? 'active' : '' ?>">
+                            <a class="page-link"
+                            href="?<?= http_build_query(array_merge($_GET, ['page' => $i])) ?>">
+                                <?= $i ?>
+                            </a>
+                        </li>
+                    <?php endfor; ?>
+
+                    <!-- Link alla ultima pagina se non è inclusa nella paginazione -->
+                    <?php if ($end < $totalPages) : ?>
+                        <li class="page-item">
+                            <a class="page-link"
+                            href="?<?= http_build_query(array_merge($_GET, ['page' => $totalPages])) ?>">
+                                <?= $totalPages ?>
+                            </a>
+                        </li>
+                    <?php endif; ?>
+
+                    <!-- Next -->
+                    <?php if ($currentPage < $totalPages) : ?>
+                        <li class="page-item">
+                            <a class="page-link"
+                            href="?<?= http_build_query(array_merge($_GET, ['page' => $currentPage + 1])) ?>">
+                                Successiva
+                            </a>
+                        </li>
+                    <?php endif; ?>
+
+                </ul>
+            </nav>
+
         </section>
     </div>
 </div>

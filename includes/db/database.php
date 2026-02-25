@@ -12,8 +12,7 @@ class DatabaseHelper
         $this->db->set_charset("utf8mb4");
     }
 
-    public function getGroups()
-    {
+    public function getGroups() {
         $query = <<<SQL
                 SELECT
                     g.id,
@@ -45,8 +44,7 @@ class DatabaseHelper
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function getGroupsFiltered($courseId = null, $subject = null, $date = null, $showFull = false)
-    {
+    public function getGroupsFiltered($courseId = null, $subject = null, $date = null, $showFull = false) {
         $query = <<<SQL
             SELECT
                 g.id,
@@ -123,6 +121,142 @@ class DatabaseHelper
         $stmt->execute();
         $result = $stmt->get_result();
         return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getGroupsFilteredPaginated($courseId = null, $subject = null, $date = null, $showFull = false, $limit, $offset) {
+        $query = <<<SQL
+            SELECT
+                g.id,
+                g.titolo,
+                g.descrizione,
+                g.data_esame,
+                COUNT(p.id_partecipante) AS num_partecipanti,
+                g.max_partecipanti,
+                cdl.nome AS corso_di_laurea,
+                m.nome AS materia,
+                u.nome AS nome_creatore,
+                u.cognome AS cognome_creatore,
+                u.foto_profilo as foto_profilo_creatore
+            FROM gruppi AS g
+            JOIN materie AS m 
+                ON g.nome_materia_studiata = m.nome 
+                AND g.id_cdl = m.id_cdl
+            JOIN corsi_di_laurea AS cdl 
+                ON m.id_cdl = cdl.id
+            JOIN utenti AS u 
+                ON g.id_creatore = u.id
+            LEFT JOIN partecipazioni AS p 
+                ON g.id = p.id_gruppo
+        SQL;
+
+        $conditions = [];   // Memorizza le eventuali condizioni da verificare nel WHERE
+        $params = [];       // Memorizza gli eventuali parametri da bindare
+        $types = "";        // Memorizza gli eventuali tipi dei parametri da bindare
+
+        // Se è stato passato un corso aggiunge un filtro su id_cdl
+        if ($courseId) {
+            $conditions[] = "g.id_cdl = ?";
+            $params[] = $courseId;
+            $types .= "i";
+        }
+
+        // Se è stata passata una materia aggiunge un filtro su nome_materia_studiata
+        if ($subject) {
+            $conditions[] = "g.nome_materia_studiata = ?";
+            $params[] = $subject;
+            $types .= "s";
+        }
+
+        // Se è stata passata una data aggiunge un filtro su data_esame
+        if ($date) {
+            $conditions[] = "g.data_esame <= ?";
+            $params[] = $date;
+            $types .= "s";
+        }
+
+        // Se c'erano delle condizioni le aggiunge in fondo alla query.
+        if (!empty($conditions)) {
+            $query .= " WHERE " . implode(" AND ", $conditions);
+        }
+
+        // Aggiunge il GROUP BY che deve essere dopo il WHERE.
+        $query .= " GROUP BY g.id";
+
+        // Se vuole vedere solo i gruppi con posti disponibili.
+        if ($showFull) {
+            $query .= " HAVING COUNT(p.id_partecipante) < g.max_partecipanti";
+        }
+
+        $query .= " LIMIT ? OFFSET ?";
+        $params[] = $limit;
+        $params[] = $offset;
+        $types .= "ii";
+
+        $stmt = $this->db->prepare($query);
+
+        if (!$stmt) {
+            error_log("Errore nella preparazione della query: " . $this->db->error);
+            return [];
+        }
+
+        if (!empty($params)) {
+            $stmt->bind_param($types, ...$params);
+        }
+
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function countGroupsFiltered(
+        $courseId = null,
+        $subject = null,
+        $date = null,
+        $showFull = false
+    ) {
+        $query = <<<SQL
+            SELECT COUNT(DISTINCT g.id) AS total
+            FROM gruppi g
+            LEFT JOIN partecipazioni p ON g.id = p.id_gruppo
+        SQL;
+
+        $conditions = [];
+        $params = [];
+        $types = "";
+
+        if ($courseId) {
+            $conditions[] = "g.id_cdl = ?";
+            $params[] = $courseId;
+            $types .= "i";
+        }
+
+        if ($subject) {
+            $conditions[] = "g.nome_materia_studiata = ?";
+            $params[] = $subject;
+            $types .= "s";
+        }
+
+        if ($date) {
+            $conditions[] = "g.data_esame <= ?";
+            $params[] = $date;
+            $types .= "s";
+        }
+
+        if ($conditions) {
+            $query .= " WHERE " . implode(" AND ", $conditions);
+        }
+
+        if ($showFull) {
+            $query .= " HAVING COUNT(p.id_partecipante) < g.max_partecipanti";
+        }
+
+        $stmt = $this->db->prepare($query);
+        if ($params) {
+            $stmt->bind_param($types, ...$params);
+        }
+
+        $stmt->execute();
+        return (int)$stmt->get_result()->fetch_assoc()['total'];
     }
 
     function getGroupsCreatedBy($userId)

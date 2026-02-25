@@ -18,7 +18,8 @@ $gruppiCreati = $templateParams["groups_created"] ?? [];
                         type="button" 
                         role="tab" 
                         aria-controls="partecipo" 
-                        aria-selected="<?= $templateParams["tab"] === 'joined' ? 'true' : 'false' ?>">
+                        aria-selected="<?= $templateParams["tab"] === 'joined' ? 'true' : 'false' ?>"
+                    >
                         Gruppi a cui partecipo
                     </button>
                 </li>
@@ -31,7 +32,8 @@ $gruppiCreati = $templateParams["groups_created"] ?? [];
                         type="button" 
                         role="tab" 
                         aria-controls="creati" 
-                        aria-selected="<?= $templateParams["tab"] === 'created' ? 'true' : 'false' ?>">
+                        aria-selected="<?= $templateParams["tab"] === 'created' ? 'true' : 'false' ?>"
+                    >
                         Creati da me
                     </button>
                 </li>

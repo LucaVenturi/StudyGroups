@@ -71,7 +71,7 @@ $user = $templateParams["user"];
                         value="<?= htmlspecialchars($user["cognome"]) ?>" 
                         required
                     />
-                    <label for="nameInput">Cognome</label>
+                    <label for="surnameInput">Cognome</label>
                 </div>
             </div>
 
